@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Middleman Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+
+    /* ------------------- Base Styles ------------------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      color: #00ff99;
+      text-align: center;
+    }
+
+    /* ------------------- Sidebar ------------------- */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #161b22;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.4);
+    }
+    .sidebar h2 {
+      text-align: center;
+      color: #00ff99;
+      margin-bottom: 30px;
+    }
+    .sidebar a {
+      display: block;
+      color: #e6e6e6;
+      text-decoration: none;
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #00ff99;
+      color: #0d1117;
+    }
+
+    /* ------------------- Content ------------------- */
+    .content {
+      margin-left: 240px;
+      padding: 20px;
+    }
+
+    /* ------------------- Tables ------------------- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #161b22;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,255,153,0.3);
+      margin-bottom: 40px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background: #00ff99;
+      color: #0d1117;
+    }
+    tr:nth-child(even) {
+      background: #1f2937;
+    }
+
+    /* ------------------- Badges ------------------- */
+    .badge {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .pending { background: orange; color: #fff; }
+    .approved { background: green; color: #fff; }
+    .rejected { background: red; color: #fff; }
+
+    /* ------------------- Buttons ------------------- */
+    .btn {
+      display: flex;
+      gap: 5px;
+      padding: 6px 12px;
+      margin: 2px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.3s;
+    }
+    .btn-accept { background: #04a565; color: #0d1117; }
+    .btn-accept:hover { background: #0d1117; color: #00ff99; border: 1px solid #00ff99; }
+
+    .btn-reject { background: #ff4d4d; color: #fff; }
+    .btn-reject:hover { background: #990000; }
+
+    .btn-pending { background: #ffc107; color: #0d1117; }
+    .btn-pending:hover { background: #b38600; }
+
+    .btn-view { background: #007bff; color: white; }
+    .btn-view:hover { background: #0056b3; }
+
+    /* ------------------- Cursor Trail ------------------- */
+    .trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #00ff99;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade 0.5s linear forwards;
+    }
+    @keyframes fade {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.5); }
+    }
+
+    /* ------------------- Card Animations ------------------- */
+    .section-card {
+      background: #111827;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.3);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <!-- <div class="sidebar">
+    <h2>Farm2Fork</h2>
+    <a href="home1.html"><i class="fas fa-home"></i> Home</a>
+    <a href="farmer-log.html"><i class="fas fa-tractor"></i> Farmer</a>
+    <a href="middleman-log.html"><i class="fas fa-truck"></i> Middleman</a>
+    <a href="govt-log.html"><i class="fas fa-landmark"></i> Govt</a>
+    <a href="consumer1.html"><i class="fas fa-user"></i> Consumer</a>
+    <a href="admin-log.html"><i class="fas fa-user-shield"></i> Admin</a>
+    <a href="About1.html"><i class="fas fa-info-circle"></i> About</a>
+  </div> -->
+  
+  <div class="sidebar">
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\home1.html"><i class="fas fa-home"></i>Home</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\govtoff-log.html"><i class="fas fa-tractor"></i>Farmer</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\middleman-log.html"><i class="fas fa-truck"></i>Middleman</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\govtoff-log.html"><i class="fas fa-landmark"></i>Govt</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\consumer1.html"><i class="fas fa-user"></i>Consumer</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\admin-log.html"><i class="fas fa-user-shield"></i>Admin</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\About1.html"><i class="fas fa-info-circle"></i>About</a>
+</div>
+
+  <!-- Content -->
+  <div class="content">
+    <h1>GOVT OFFICIAL Dashboard</h1>
+
+    <!-- Pending Requests Section -->
+    <div class="section-card">
+      <h2>Pending Requests from Farmers</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Farmer ID</th>
+            <th>Farmer Name</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Request Message</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>F001</td>
+            <td>Farmer A</td>
+            <td>P001</td>
+            <td>Tomatoes</td>
+            <td>100 kg</td>
+            <td>Requesting approval for organic supply</td>
+            <td>2025-09-13</td>
+            <td><span class="badge pending">Pending</span></td>
+            <td>
+              <button class="btn btn-accept">Accept</button>
+              <button class="btn btn-reject">Reject</button>
+              <button class="btn btn-pending">Mark Pending</button>
+            </td>
+          </tr>
+          <tr>
+            <td>F002</td>
+            <td>Farmer B</td>
+            <td>P002</td>
+            <td>Wheat</td>
+            <td>200 kg</td>
+            <td>Requesting approval for verified quality</td>
+            <td>2025-09-12</td>
+            <td><span class="badge pending">Pending</span></td>
+            <td>
+              <button class="btn btn-accept">Accept</button>
+              <button class="btn btn-reject">Reject</button>
+              <button class="btn btn-pending">Mark Pending</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Accepted Products Section -->
+    <div class="section-card">
+      <h2>Accepted Products</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Farmer ID</th>
+            <th>Farmer Name</th>
+            <th>Product ID</th>
+            <th>Approval Date</th>
+            <th>Status</th>
+            <th>QR Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>F003</td>
+            <td>Farmer C</td>
+            <td>P003</td>
+            <td>2025-09-11</td>
+            <td><span class="badge approved">Approved</span></td>
+            <td><i class="fa fa-qrcode"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Rejected Products Section -->
+    <div class="section-card">
+      <h2>Rejected Products</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Farmer ID</th>
+            <th>Farmer Name</th>
+            <th>Product ID</th>
+            <th>Rejection Date</th>
+            <th>Remarks</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>F004</td>
+            <td>Farmer D</td>
+            <td>P004</td>
+            <td>2025-09-10</td>
+            <td>Missing pesticide info</td>
+            <td><span class="badge rejected">Rejected</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Cursor Trail Script -->
+  <script>
+    document.addEventListener("mousemove", function(e) {
+      let trail = document.createElement("div");
+      trail.className = "trail";
+      trail.style.left = (e.pageX - 4) + "px";
+      trail.style.top = (e.pageY - 4) + "px";
+      document.body.appendChild(trail);
+      setTimeout(() => { trail.remove(); }, 500);
+    });
+  </script>
+
+</body>
+</html>

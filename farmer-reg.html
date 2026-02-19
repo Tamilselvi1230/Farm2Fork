@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Farmer Registration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-name {
+      font-size: 42px;
+      font-weight: 700;
+      color: #22c55e;
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+    }
+
+    .register-card {
+      background: #111827;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.4);
+      width: 350px;
+      text-align: center;
+      position: relative;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .register-card h2 {
+      color: #22c55e;
+      margin-bottom: 25px;
+    }
+
+    .register-card input {
+      width: 100%;
+      padding: 12px 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #1f2937;
+      color: #e6e6e6;
+      box-sizing: border-box;
+    }
+
+    .register-card button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #22c55e;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .register-card button:hover {
+      transform: scale(1.05);
+    }
+
+    .register-card a {
+      color: #22c55e;
+      text-decoration: none;
+    }
+
+    /* Language popup button (top-right corner) */
+    .lang-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #22c55e;
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      z-index: 1000;
+    }
+
+    .lang-options {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      background: #1f2937;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .lang-options button {
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      background: none;
+      color: #e6e6e6;
+      cursor: pointer;
+    }
+
+    .lang-options button:hover {
+      background: #22c55e;
+      color: #000;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Center Heading -->
+  <div class="app-name">Farm2Fork🌱</div>
+
+  <!-- Language switcher top-right -->
+  <div class="lang-popup" id="langPopup">Language</div>
+  <div class="lang-options" id="langOptions">
+    <button id="englishBtn">English</button>
+    <button id="tamilBtn">தமிழ்</button>
+    <button id="odiaBtn">ଓଡ଼ିଆ</button>
+  </div>
+
+  <!-- Registration Card -->
+  <div class="register-card">
+    <h2 id="formTitle">Farmer Registration</h2>
+    <form id="farmerRegisterForm">
+      <input type="text" id="farmerName" placeholder="Full Name" required>
+      <input type="text" id="farmerId" placeholder="Mobile Number or Farmer ID" required>
+      <input type="text" id="aadharId" placeholder="Aadhar ID" required>
+      <input type="password" id="farmerPassword" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="submit" id="registerBtn">Register</button>
+    </form>
+    <p style="margin-top: 10px;" id="loginText">Already registered? <a href="farmer-log.html" id="loginLink">Login here</a></p>
+  </div>
+
+  <script>
+    // Toggle Language Popup
+    const langPopup = document.getElementById('langPopup');
+    const langOptions = document.getElementById('langOptions');
+
+    langPopup.addEventListener('click', () => {
+      langOptions.style.display = langOptions.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Language Switch
+    const englishBtn = document.getElementById('englishBtn');
+    const tamilBtn = document.getElementById('tamilBtn');
+
+    englishBtn.addEventListener('click', () => {
+      document.getElementById('formTitle').textContent = "Farmer Registration";
+      document.getElementById('farmerName').placeholder = "Full Name";
+      document.getElementById('farmerId').placeholder = "Mobile Number or Farmer ID";
+      document.getElementById('aadharId').placeholder = "Aadhar ID";
+      document.getElementById('farmerPassword').placeholder = "Password";
+      document.getElementById('confirmPassword').placeholder = "Confirm Password";
+      document.getElementById('registerBtn').textContent = "Register";
+      document.getElementById('loginText').innerHTML = 'Already registered? <a href="farmer-log.html">Login here</a>';
+      langOptions.style.display = 'none';
+    });
+
+    tamilBtn.addEventListener('click', () => {
+      document.getElementById('formTitle').textContent = "விவசாய் பதிவு";
+      document.getElementById('farmerName').placeholder = "முழு பெயர்";
+      document.getElementById('farmerId').placeholder = "மொபைல் எண் அல்லது விவசாய் ID";
+      document.getElementById('aadharId').placeholder = "ஆதார் எண்";
+      document.getElementById('farmerPassword').placeholder = "கடவுச்சொல்";
+      document.getElementById('confirmPassword').placeholder = "கடவுச்சொல்லை உறுதிசெய்க";
+      document.getElementById('registerBtn').textContent = "பதிவு செய்க";
+      document.getElementById('loginText').innerHTML = 'ஏற்கனவே பதிவு செய்திருந்தால்? <a href="farmer-log.html">உள்நுழைக</a>';
+      langOptions.style.display = 'none';
+    });
+
+  // Existing English & Tamil code stays the same...
+
+  // Odia Language Switch
+  const odiaBtn = document.getElementById('odiaBtn');
+
+  odiaBtn.addEventListener('click', () => {
+    document.getElementById('formTitle').textContent = "କୃଷକ ପଞ୍ଜିକରଣ"; // Farmer Registration
+    document.getElementById('farmerName').placeholder = "ପୁରା ନାମ"; // Full Name
+    document.getElementById('farmerId').placeholder = "ମୋବାଇଲ୍ ନମ୍ବର କିମ୍ବା କୃଷକ ID"; // Mobile Number or Farmer ID
+    document.getElementById('aadharId').placeholder = "ଆଧାର ID"; // Aadhar ID
+    document.getElementById('farmerPassword').placeholder = "ପାସୱାର୍ଡ"; // Password
+    document.getElementById('confirmPassword').placeholder = "ପାସୱାର୍ଡ ପୁଣିଥରେ ପ୍ରବେଶ କରନ୍ତୁ"; // Confirm Password
+    document.getElementById('registerBtn').textContent = "ପଞ୍ଜିକରଣ କରନ୍ତୁ"; // Register
+    document.getElementById('loginText').innerHTML = 'ପୂର୍ବରୁ ପଞ୍ଜିକୃତ? <a href="farmer-log.html">ଲଗଇନ କରନ୍ତୁ</a>'; // Already registered? Login here
+    langOptions.style.display = 'none';
+  });
+
+
+    // Registration Form Submission
+    document.getElementById('farmerRegisterForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('farmerName').value.trim();
+      const id = document.getElementById('farmerId').value.trim();
+      const aadhar = document.getElementById('aadharId').value.trim();
+      const pwd = document.getElementById('farmerPassword').value.trim();
+      const confirmPwd = document.getElementById('confirmPassword').value.trim();
+
+      if(pwd !== confirmPwd){
+        alert("Passwords do not match!");
+        return;
+      }
+
+      alert(`Farmer Registered Successfully!\nName: ${name}\nID/Phone: ${id}`);
+      window.location.href = "farmer-log.html"; 
+    });
+  </script>
+</body>
+</html>

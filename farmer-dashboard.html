@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm2Fork - Farmer Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    background: #0d1117;
+    color: #e6e6e6;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 100%;
+    background: #111827;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    gap: 25px;
+    box-shadow: 3px 0 8px rgba(0,0,0,0.6);
+    z-index: 1000;
+  }
+  .sidebar a {
+    color: #9ca3af;
+    text-decoration: none;
+    text-align: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .sidebar a:hover { color: #22c55e; transform: scale(1.15); }
+  .sidebar i { font-size: 20px; margin-bottom: 5px; display: block; }
+
+  /* Main Content */
+  .main { margin-left: 80px; padding: 20px; }
+  h2 { color: #22c55e; font-size: 40px; font-weight: 700; margin-bottom: 20px; }
+
+  /* Form Card */
+  .form-card {
+    background: #1f2937;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+  }
+  .form-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(34,197,94,0.5);
+  }
+
+  /* Buttons */
+  .btn {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #22c55e;
+    color: #000;
+    font-weight: 600;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.5s;
+  }
+  .btn:hover::before { left:100%; }
+  .btn:hover { transform: scale(1.05); }
+
+  /* File Input Custom */
+  .file-label {
+    display: inline-block;
+    background: #111827;
+    padding: 8px 16px;
+    border-radius: 6px;
+    color: #e6e6e6;
+    cursor: pointer;
+    text-align: center;
+  }
+  .file-label:hover {
+    background: #22c55e;
+    color: #000;
+    transition: 0.3s;
+  }
+  input[type="file"] { display: none; }
+
+  /* Language Popup */
+  .lang-popup {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 2000;
+  }
+  .lang-popup select {
+    background: #111827;
+    color: #e6e6e6;
+    border: 1px solid #22c55e;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Cursor Particle */
+  @keyframes fade-out {
+    0% {opacity:1; transform:scale(1);}
+    100% {opacity:0; transform:scale(0);}
+  }
+</style>
+</head>
+<body>
+
+<!-- Language Selector -->
+<div class="lang-popup">
+  <select id="languageSelect">
+    <option value="en">English</option>
+    <option value="ta">தமிழ்</option>
+    <option value="od">ଓଡ଼ିଆ</option>
+  </select>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\home1.html"><i class="fas fa-home"></i><span class="nav-home">Home</span></a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\farmer-log.html"><i class="fas fa-tractor"></i><span class="nav-farmer">Farmer</span></a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\middleman-log.html"><i class="fas fa-truck"></i><span class="nav-middleman">Middleman</span></a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\govtoff-log.html"><i class="fas fa-landmark"></i><span class="nav-govt">Govt</span></a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\admin-log.html"><i class="fas fa-user-shield"></i><span class="nav-admin">Admin</span></a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\consumer1.html"><i class="fas fa-users"></i><span class="nav-consumer">Consumer</span></a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\About1.html"><i class="fas fa-info-circle"></i><span class="nav-about">About</span></a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+  <h2 class="dashboard-title mt-4 mb-6 text-4xl font-bold text-green-500">Farmer Dashboard</h2>
+
+  <!-- Product Registration Form -->
+  <div class="form-card">
+    <h3 class="text-green-500 text-xl mb-4"><i class="fas fa-seedling"></i> <span class="register-product-title">Register New Product</span></h3>
+    <form id="productForm" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" placeholder="Product Name" class="p-2 rounded bg-gray-800 text-white w-full input-product-name" required>
+        <input type="number" placeholder="Quantity (kg/tons)" class="p-2 rounded bg-gray-800 text-white w-full input-quantity" required>
+        <input type="text" placeholder="Origin / Location" class="p-2 rounded bg-gray-800 text-white w-full input-origin" required>
+        <input type="date" placeholder="Harvest Date" class="p-2 rounded bg-gray-800 text-white w-full input-harvest" required>
+        <input type="text" placeholder="Shelf Life" class="p-2 rounded bg-gray-800 text-white w-full input-shelf" required>
+        <input type="number" placeholder="Farmer Base Price (₹)" class="p-2 rounded bg-gray-800 text-white w-full input-baseprice" required>
+        <input type="number" placeholder="Middleman Service Fee (₹)" class="p-2 rounded bg-gray-800 text-white w-full input-middleman" >
+        <input type="number" placeholder="Final Consumer Price (Auto)" class="p-2 rounded bg-gray-800 text-white w-full input-final">
+      </div>
+
+      <!-- File Uploads with Custom Button -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <label class="file-label input-upload-images-label">
+          <span class="btn-file-text">Upload Product Images</span>
+          <input type="file" multiple class="input-upload-images">
+        </label>
+
+        <label class="file-label input-upload-docs-label">
+          <span class="btn-file-text">Certification / Docs</span>
+          <input type="file" class="input-upload-docs">
+        </label>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <select class="p-2 rounded bg-gray-800 text-white w-full input-type">
+          <option>Organic</option>
+          <option>Inorganic</option>
+        </select>
+        <input type="text" placeholder="Pesticides Used (ml/kg)" class="p-2 rounded bg-gray-800 text-white w-full input-pesticides">
+        <input type="text" placeholder="Fertilizer Details" class="p-2 rounded bg-gray-800 text-white w-full input-fertilizer">
+        <input type="text" placeholder="Storage Method" class="p-2 rounded bg-gray-800 text-white w-full input-storage">
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <input type="checkbox" required>
+        <span class="input-confirm">Confirm authenticity of data</span>
+      </div>
+
+      <div class="flex space-x-4">
+        <button type="submit" class="btn btn-generate"><span class="btn-generate-text">Generate QR Code</span></button>
+        <button type="button" class="btn btn-request"><span class="btn-request-text">Request Govt Verification</span></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Dashboard Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+    <div class="form-card text-center">
+      <h3 class="text-green-400 text-xl"><i class="fas fa-clipboard-check"></i> <span class="pending-title">Pending Verification</span></h3>
+      <p class="text-white text-2xl mt-2 pending-count">3</p>
+    </div>
+    <div class="form-card text-center">
+      <h3 class="text-green-400 text-xl"><i class="fas fa-check-circle"></i> <span class="approved-title">Approved</span></h3>
+      <p class="text-white text-2xl mt-2 approved-count">7</p>
+    </div>
+    <div class="form-card text-center">
+      <h3 class="text-green-400 text-xl"><i class="fas fa-times-circle"></i> <span class="rejected-title">Rejected</span></h3>
+      <p class="text-white text-2xl mt-2 rejected-count">1</p>
+    </div>
+    <div class="form-card text-center">
+      <h3 class="text-green-400 text-xl"><i class="fas fa-qrcode"></i> <span class="qr-title">QR Generated</span></h3>
+      <p class="text-white text-2xl mt-2 qr-count">5</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sprinkler Cursor Effect
+  document.addEventListener('mousemove', (e) => {
+    const particle = document.createElement('div');
+    particle.style.position = 'fixed';
+    particle.style.left = e.clientX + 'px';
+    particle.style.top = e.clientY + 'px';
+    particle.style.width = '5px';
+    particle.style.height = '5px';
+    particle.style.background = 'rgba(0,255,127,0.6)';
+    particle.style.borderRadius = '50%';
+    particle.style.pointerEvents = 'none';
+    particle.style.zIndex = '9999';
+    particle.style.animation = 'fade-out 1s ease-out forwards';
+    document.body.appendChild(particle);
+    setTimeout(() => particle.remove(), 1000);
+  });
+
+  // Translation Object
+  const translations = {
+    ta: {
+      dashboardTitle: "விவசாயி டாஷ்போர்டு",
+      registerProduct: "புதிய தயாரிப்பு பதிவு",
+      confirmData: "தரவு உண்மைத்தன்மையை உறுதிப்படுத்தவும்",
+      generateQR: "QR குறியீட்டை உருவாக்கவும்",
+      requestVerification: "அரசு சான்றிதழ் கோரிக்கை",
+      pendingVerification: "முடிவுகள் காத்திருக்கின்றன",
+      approved: "அனுமதி பெற்றது",
+      rejected: "நிராகரிக்கப்பட்டது",
+      qrGenerated: "QR உருவாக்கப்பட்டது",
+      navHome: "முகப்பு",
+      navFarmer: "விவசாயி",
+      navMiddleman: "நடுத்தரவர்",
+      navGovt: "அரசு",
+      navAdmin: "நிர்வாகி",
+      navConsumer: "நுகர்வோர்",
+      navAbout: "பற்றி",
+      inputProductName: "பொருள் பெயர்",
+      inputQuantity: "அளவு (கிலோ/டன்)",
+      inputOrigin: "மூலம் / இடம்",
+      inputHarvest: "சாகுபடி தேதி",
+      inputShelf: "கிடைக்கும் காலம்",
+      inputBasePrice: "விவசாயி அடிப்படை விலை (₹)",
+      inputMiddleman: "நடுத்தர சேவை கட்டணம் (₹)",
+      inputFinal: "இறுதி நுகர்வோர் விலை (தானாக)",
+      inputType: "நுண்ணிய / உயிரணு",
+      inputPesticides: "பesticides பயன்படுத்தப்பட்டது (ml/kg)",
+      inputFertilizer: "உர விவரங்கள்",
+      inputStorage: "சேமிப்பு முறை",
+      inputUploadImages: "தயாரிப்பு படங்களைப் பதிவேற்றவும்",
+      inputUploadDocs: "சான்றிதழ் / ஆவணங்கள்"
+    },
+    od: { 
+    dashboardTitle: "କୃଷକ ଡ୍ୟାଶବୋର୍ଡ",
+    registerProduct: "ନୂତନ ଉତ୍ପାଦ ପଞ୍ଜିକରଣ",
+    confirmData: "ତଥ୍ୟର ପ୍ରମାଣିକତା ନିଶ୍ଚିତ କରନ୍ତୁ",
+    generateQR: "QR କୋଡ୍ ତିଆରି କରନ୍ତୁ",
+    requestVerification: "ସରକାରୀ ସନଦ ପାଇଁ ଅନୁରୋଧ",
+    pendingVerification: "ପ୍ରତିକ୍ଷାରେ ଥିବା",
+    approved: "ମଞ୍ଜୁରି",
+    rejected: "ବାତିଲ୍",
+    qrGenerated: "QR ତିଆରି ହୋଇଛି",
+    navHome: "ମୁଖ୍ୟ ପୃଷ୍ଠା",
+    navFarmer: "କୃଷକ",
+    navMiddleman: "ମଧ୍ୟସ୍ଥ",
+    navGovt: "ସରକାର",
+    navAdmin: "ପ୍ରଶାସକ",
+    navConsumer: "ଉପଭୋକ୍ତା",
+    navAbout: "ବିଷୟରେ",
+    inputProductName: "ଉତ୍ପାଦ ନାମ",
+    inputQuantity: "ପରିମାଣ (କିଲୋ/ଟନ୍)",
+    inputOrigin: "ମୂଳ / ଅଞ୍ଚଳ",
+    inputHarvest: "କାଟା ତାରିଖ",
+    inputShelf: "ସେଲ୍ଫ ଲାଇଫ୍",
+    inputBasePrice: "କୃଷକ ମୂଳ୍ୟ (₹)",
+    inputMiddleman: "ମଧ୍ୟସ୍ଥ ସେବା ଶୁଳ୍କ (₹)",
+    inputFinal: "ଚୁକ୍ତି ମୂଳ୍ୟ (ସ୍ୱୟଂଚାଳିତ)",
+    inputType: "ସଂସ୍କୃତି / ଅସଂସ୍କୃତି",
+    inputPesticides: "ପେସ୍ଟିସାଇଡ୍ ବ୍ୟବହାର (ml/kg)",
+    inputFertilizer: "ଉର୍ବରକ ବିବରଣୀ",
+    inputStorage: "ସଞ୍ଚୟ ପ୍ରଣାଳୀ",
+    inputUploadImages: "ଉତ୍ପାଦ ଛବି ଅପଲୋଡ୍ କରନ୍ତୁ",
+    inputUploadDocs: "ସନଦ / ଡକ୍ୟୁମେଣ୍ଟ"
+  },
+    en: {}
+  };
+
+  // Language Switcher
+  const languageSelect = document.getElementById('languageSelect');
+languageSelect.addEventListener('change', function(){
+  const lang = this.value;
+
+  if(lang === "ta" || lang === "od") {
+    const t = translations[lang];
+
+    document.querySelector('.dashboard-title').innerText = t.dashboardTitle;
+    document.querySelector('.register-product-title').innerText = t.registerProduct;
+    document.querySelector('.input-confirm').innerText = t.confirmData;
+    document.querySelector('.btn-generate-text').innerText = t.generateQR;
+    document.querySelector('.btn-request-text').innerText = t.requestVerification;
+    document.querySelector('.pending-title').innerText = t.pendingVerification;
+    document.querySelector('.approved-title').innerText = t.approved;
+    document.querySelector('.rejected-title').innerText = t.rejected;
+    document.querySelector('.qr-title').innerText = t.qrGenerated;
+
+    // Sidebar
+    document.querySelector('.nav-home').innerText = t.navHome;
+    document.querySelector('.nav-farmer').innerText = t.navFarmer;
+    document.querySelector('.nav-middleman').innerText = t.navMiddleman;
+    document.querySelector('.nav-govt').innerText = t.navGovt;
+    document.querySelector('.nav-admin').innerText = t.navAdmin;
+    document.querySelector('.nav-consumer').innerText = t.navConsumer;
+    document.querySelector('.nav-about').innerText = t.navAbout;
+
+    // Input placeholders
+    document.querySelector('.input-product-name').placeholder = t.inputProductName;
+    document.querySelector('.input-quantity').placeholder = t.inputQuantity;
+    document.querySelector('.input-origin').placeholder = t.inputOrigin;
+    document.querySelector('.input-harvest').placeholder = t.inputHarvest;
+    document.querySelector('.input-shelf').placeholder = t.inputShelf;
+    document.querySelector('.input-baseprice').placeholder = t.inputBasePrice;
+    document.querySelector('.input-middleman').placeholder = t.inputMiddleman;
+    document.querySelector('.input-final').placeholder = t.inputFinal;
+    document.querySelector('.input-type').options[0].text = (lang === "ta") ? "இயற்கை" : "ସଂସ୍କୃତି";
+    document.querySelector('.input-type').options[1].text = (lang === "ta") ? "இயற்கை அல்லாதது" : "ଅସଂସ୍କୃତି";
+    document.querySelector('.input-pesticides').placeholder = t.inputPesticides;
+    document.querySelector('.input-fertilizer').placeholder = t.inputFertilizer;
+    document.querySelector('.input-storage').placeholder = t.inputStorage;
+
+    // File upload labels
+    document.querySelectorAll('.btn-file-text')[0].innerText = t.inputUploadImages;
+    document.querySelectorAll('.btn-file-text')[1].innerText = t.inputUploadDocs;
+  } else {
+    window.location.reload();
+  }
+});
+
+</script>
+</body>
+</html>

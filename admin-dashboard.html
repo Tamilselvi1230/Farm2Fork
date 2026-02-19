@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ------------------- Base Styles ------------------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      color: #00ff99;
+      text-align: center;
+    }
+
+    /* ------------------- Sidebar ------------------- */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #161b22;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.4);
+    }
+    .sidebar h2 {
+      text-align: center;
+      color: #00ff99;
+      margin-bottom: 30px;
+    }
+    .sidebar a {
+      display: block;
+      color: #e6e6e6;
+      text-decoration: none;
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #00ff99;
+      color: #0d1117;
+    }
+
+    /* ------------------- Content ------------------- */
+    .content {
+      margin-left: 240px;
+      padding: 20px;
+    }
+
+    /* ------------------- Tabs ------------------- */
+    .tabs {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #111827;
+      color: #00ff99;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: #00ff99;
+      color: #0d1117;
+    }
+
+    /* ------------------- Section Cards ------------------- */
+    .section-card {
+      display: none;
+      background: #111827;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.3);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    .section-card.active {
+      display: block;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ------------------- Tables ------------------- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #161b22;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,255,153,0.3);
+      margin-bottom: 40px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background: #00ff99;
+      color: #0d1117;
+    }
+    tr:nth-child(even) {
+      background: #1f2937;
+    }
+
+    /* ------------------- Badges ------------------- */
+    .badge {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .pending { background: orange; color: #fff; }
+    .approved { background: green; color: #fff; }
+    .rejected { background: red; color: #fff; }
+
+    /* ------------------- Buttons ------------------- */
+    .btn {
+      padding: 6px 12px;
+      margin: 2px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.3s;
+    }
+    .btn-view { background: #007bff; color: white; }
+    .btn-view:hover { background: #0056b3; }
+
+    /* ------------------- Cursor Trail ------------------- */
+    .trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #00ff99;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade 0.5s linear forwards;
+    }
+    @keyframes fade {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.5); }
+    }
+
+    /* ------------------- Floating Analytics Button (No Glow) ------------------- */
+    .analytics-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #00ff99;
+      color: #0d1117;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    .analytics-btn:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\home1.html"><i class="fas fa-home"></i>Home</a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\farmer-log.html"><i class="fas fa-tractor"></i>Farmer</a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\middleman-log.html"><i class="fas fa-truck"></i>Middleman</a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\govtoff-log.html"><i class="fas fa-landmark"></i>Govt</a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\consumer1.html"><i class="fas fa-user"></i>Consumer</a> 
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\admin-log.html"><i class="fas fa-user-shield"></i>Admin</a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\About1.html"><i class="fas fa-info-circle"></i>About</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h1>Admin Dashboard</h1>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="users">Users</button>
+      <button class="tab-btn" data-tab="products">Products</button>
+      <button class="tab-btn" data-tab="blockchain">Blockchain</button>
+      <button class="tab-btn" data-tab="smartcontracts">Smart Contracts</button>
+      <button class="tab-btn" data-tab="disputes">Disputes</button>
+      <button class="tab-btn" data-tab="analytics">Analytics</button>
+      <button class="tab-btn" data-tab="alerts">Alerts</button>
+    </div>
+
+    <!-- Users Section -->
+    <div id="users" class="section-card active">
+      <h2>Manage Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>F001</td>
+            <td>Farmer A</td>
+            <td>Farmer</td>
+            <td><span class="badge approved">Active</span></td>
+            <td><button class="btn btn-view">View</button></td>
+          </tr>
+          <tr>
+            <td>M001</td>
+            <td>Middleman A</td>
+            <td>Middleman</td>
+            <td><span class="badge pending">Pending</span></td>
+            <td><button class="btn btn-view">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Products Section -->
+    <div id="products" class="section-card">
+      <h2>Products Database</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Farmer ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>QR Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P001</td>
+            <td>F001</td>
+            <td>Tomatoes</td>
+            <td>100 kg</td>
+            <td><span class="badge pending">Pending</span></td>
+            <td><i class="fa fa-qrcode"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Blockchain Section -->
+    <div id="blockchain" class="section-card">
+      <h2>Blockchain Traceability</h2>
+      <p>Immutable ledger of all transactions (Farmers, Officers, Middlemen, Consumers)</p>
+    </div>
+
+    <!-- Smart Contracts Section -->
+    <div id="smartcontracts" class="section-card">
+      <h2>Smart Contracts Management</h2>
+      <p>Deploy/update contracts, view logs, price locks, verification flows</p>
+    </div>
+
+    <!-- Disputes Section -->
+    <div id="disputes" class="section-card">
+      <h2>Dispute Management</h2>
+      <p>View, resolve, escalate farmer disputes & fraud actions</p>
+    </div>
+
+    <!-- Analytics Section -->
+    <div id="analytics" class="section-card">
+      <h2>Analytics & Growth</h2>
+      <p>Crop trends, sales tracking, price comparisons, farmer growth metrics</p>
+    </div>
+
+    <!-- Alerts Section -->
+    <div id="alerts" class="section-card">
+      <h2>Alerts & Notifications</h2>
+      <p>Real-time alerts for new products, complaints, fraud, blockchain sync</p>
+    </div>
+
+  </div>
+
+  <!-- Floating Analytics Button -->
+  <a href="analytics.html" class="analytics-btn">
+    <i class="fas fa-chart-line"></i> Analytics
+  </a>
+
+  <!-- Cursor Trail Script -->
+  <script>
+    document.addEventListener("mousemove", function(e) {
+      let trail = document.createElement("div");
+      trail.className = "trail";
+      trail.style.left = (e.pageX - 4) + "px";
+      trail.style.top = (e.pageY - 4) + "px";
+      document.body.appendChild(trail);
+      setTimeout(() => { trail.remove(); }, 500);
+    });
+
+    // Tabs functionality
+    const tabs = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".section-card");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        const target = tab.getAttribute("data-tab");
+        sections.forEach(sec => {
+          sec.classList.remove("active");
+          if (sec.id === target) sec.classList.add("active");
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

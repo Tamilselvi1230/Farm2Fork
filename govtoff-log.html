@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Govt Officer Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .app-name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #22c55e;
+      text-align: center;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+    }
+    .login-card {
+      background: #111827;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.4);
+      width: 350px;
+      text-align: center;
+    }
+    .login-card h2 {
+      color: #22c55e;
+      margin-bottom: 25px;
+    }
+    .login-card input {
+      width: 100%;
+      padding: 12px 40px 12px 10px; /* space for eye icon */
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #1f2937;
+      color: #e6e6e6;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .password-container {
+      position: relative;
+      width: 100%;
+      margin: 10px 0;
+    }
+    .password-container i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #9ca3af;
+    }
+    .login-card button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #22c55e;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .login-card button:hover { transform: scale(1.05); }
+    .login-card a { color: #22c55e; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="app-name">Farm2Fork 🌱</div>
+
+  <div class="login-card">
+    <h2>Government Officer Login</h2>
+    <form id="govtLoginForm">
+      <input type="text" id="govtId" placeholder="Officer ID / Email" required>
+      
+      <div class="password-container">
+        <input type="password" id="govtPassword" placeholder="Password" required>
+        <i class="fa-solid fa-eye" id="togglePassword"></i>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+    <p style="margin-top: 15px; color: #9ca3af; font-size: 14px;">
+      New here? 
+      <a href="govtoff-reg.html" style="color: #22c55e; font-weight: 600;">Register as Officer</a>
+    </p>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('govtPassword');
+
+    togglePassword.addEventListener('click', () => {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
+
+    // Login Form
+    document.getElementById('govtLoginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const id = document.getElementById('govtId').value.trim();
+      const pwd = document.getElementById('govtPassword').value.trim();
+
+      if(id === 'officer01' && pwd === 'govpass123'){
+        window.location.href = './govtoff-dashboard.html'; // link to your Govt dashboard file
+      } else {
+        alert('Invalid credentials.\nUse Officer ID: officer01\nPassword: govpass123');
+      }
+    });
+  </script>
+
+</body>
+</html>

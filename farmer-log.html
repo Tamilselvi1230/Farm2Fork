@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Farmer Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+    }
+
+    .app-name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #22c55e;
+      text-align: center;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+      animation: pulse-glow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse-glow {
+      0% { text-shadow: 0 0 15px rgba(0,255,127,0.5); }
+      100% { text-shadow: 0 0 30px rgba(0,255,127,0.8), 0 0 40px rgba(0,255,127,0.3); }
+    }
+
+    .login-card {
+      background: #111827;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.4);
+      width: 350px;
+      text-align: center;
+      animation: fadeInUp 1s ease forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-card h2 {
+      color: #22c55e;
+      margin-bottom: 25px;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 12px 40px 12px 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #1f2937;
+      color: #e6e6e6;
+      box-sizing: border-box;
+    }
+
+    .login-card input::placeholder {
+      color: #9ca3af;
+    }
+
+    .password-container {
+      position: relative;
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .password-container input {
+      width: 100%;
+      padding: 12px 40px 12px 10px;
+      border-radius: 8px;
+      border: none;
+      background: #1f2937;
+      color: #e6e6e6;
+      box-sizing: border-box;
+    }
+
+    .password-container i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #9ca3af;
+    }
+
+    .login-card button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #22c55e;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .login-card button::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .login-card button:hover::before { left: 100%; }
+    .login-card button:hover { transform: scale(1.05); }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade-out { 0% {opacity:1; transform:scale(1);} 100% {opacity:0; transform:scale(0);} }
+
+    /* Language Switcher Button */
+    .lang-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #111827;
+      color: #22c55e;
+      border: 1px solid #22c55e;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .lang-options {
+      display: none;
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background: #111827;
+      border: 1px solid #22c55e;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .lang-options button {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      background: none;
+      border: none;
+      color: #22c55e;
+      cursor: pointer;
+    }
+
+    .lang-options button:hover {
+      background: rgba(34,197,94,0.2);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app-name">Farm2Fork🌱</div>
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher" id="langSwitcher">Language</div>
+  <div class="lang-options" id="langOptions">
+    <button data-lang="englishBtn">English</button>
+    <button data-lang="tamilBtn">தமிழ்</button>
+    <button id="odiaBtn">ଓଡ଼ିଆ</button> 
+  </div>
+
+  <div class="login-card">
+    <h2 id="loginTitle">Farmer Login</h2>
+    <form id="farmerLoginForm">
+      <input type="text" id="farmerId" placeholder="Mobile Number or Farmer ID " required>
+      <div class="password-container">
+        <input type="password" id="farmerPassword" placeholder="Password" required>
+        <i class="fa-solid fa-eye" id="togglePassword"></i>
+      </div>
+      <button type="submit" id="loginButton">Login</button>
+      <p style="margin-top: 15px; color: #9ca3af; font-size: 14px;" id="registerText">
+        New here? 
+        <a href="farmer-reg.html" style="color: #22c55e; text-decoration: none; font-weight: 600;" id="registerLink">
+          Register as a Farmer
+        </a>
+      </p>
+    </form>
+  </div>
+
+  <script>
+    // Cursor Particle Trail
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.createElement('div');
+      cursor.style.position = 'fixed';
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursor.style.width = '4px';
+      cursor.style.height = '4px';
+      cursor.style.background = 'rgba(0,255,127,0.6)';
+      cursor.style.borderRadius = '50%';
+      cursor.style.pointerEvents = 'none';
+      cursor.style.zIndex = '9999';
+      cursor.style.animation = 'fade-out 1s ease-out forwards';
+      document.body.appendChild(cursor);
+      setTimeout(() => cursor.remove(), 1000);
+    });
+
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('farmerPassword');
+    togglePassword.addEventListener('click', () => {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
+
+    // Login Form
+    document.getElementById('farmerLoginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const id = document.getElementById('farmerId').value.trim();
+      const pwd = document.getElementById('farmerPassword').value.trim();
+
+      if(id === 'farmer01' && pwd === 'password123'){
+        window.location.href = './farmer-dashboard.html'; 
+      } else {
+        alert('Invalid credentials.\nUse Farmer ID: farmer01\nPassword: password123');
+      }
+    });
+
+    // Language Switcher Logic
+   const langSwitcher = document.getElementById('langSwitcher');
+const langOptions = document.getElementById('langOptions');
+
+langSwitcher.addEventListener('click', () => {
+  langOptions.style.display = langOptions.style.display === 'block' ? 'none' : 'block';
+});
+
+const englishBtn = langOptions.querySelector('[data-lang="englishBtn"]');
+const tamilBtn = langOptions.querySelector('[data-lang="tamilBtn"]');
+const odiaBtn = document.getElementById('odiaBtn');
+
+englishBtn.addEventListener('click', () => {
+  document.getElementById('loginTitle').textContent = "Farmer Login";
+  document.getElementById('farmerId').placeholder = "Mobile Number or Farmer ID";
+  document.getElementById('farmerPassword').placeholder = "Password";
+  document.getElementById('loginButton').textContent = "Login";
+  document.getElementById('registerText').innerHTML = 'New here? <a href="farmer-reg.html" style="color: #22c55e;">Register as a Farmer</a>';
+  langOptions.style.display = 'none';
+});
+
+tamilBtn.addEventListener('click', () => {
+  document.getElementById('loginTitle').textContent = "விவசாய் உள்நுழைவு";
+  document.getElementById('farmerId').placeholder = "மொபைல் எண் அல்லது விவசாய் ID";
+  document.getElementById('farmerPassword').placeholder = "கடவுச்சொல்";
+  document.getElementById('loginButton').textContent = "உள்நுழைக";
+  document.getElementById('registerText').innerHTML = 'புதியவரா? <a href="farmer-reg.html" style="color: #22c55e;">விவசாய் பதிவு செய்க</a>';
+  langOptions.style.display = 'none';
+});
+
+odiaBtn.addEventListener('click', () => {
+  document.getElementById('loginTitle').textContent = "କୃଷକ ଲଗଇନ୍";
+  document.getElementById('farmerId').placeholder = "ମୋବାଇଲ୍ ନମ୍ବର କିମ୍ବା କୃଷକ ID";
+  document.getElementById('farmerPassword').placeholder = "ପାସୱାର୍ଡ";
+  document.getElementById('loginButton').textContent = "ଲଗଇନ୍ କରନ୍ତୁ";
+  document.getElementById('registerText').innerHTML = 'ନୂତନ କି? <a href="farmer-reg.html" style="color: #22c55e;">କୃଷକ ପଞ୍ଜିକରଣ କରନ୍ତୁ</a>';
+  langOptions.style.display = 'none';
+});
+
+
+  
+
+  </script>
+</body>
+</html>

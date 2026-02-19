@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm2Fork - QR Scan & Product Details</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0d1117;
+    color: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    color: #22c55e;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .scan-card, .product-details {
+    background: #111827;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,255,127,0.4);
+    width: 400px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .qr-placeholder {
+    width: 250px;
+    height: 250px;
+    border: 3px dashed #22c55e;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #22c55e;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 20px auto;
+  }
+
+  input[type="file"] { margin-top: 15px; }
+
+  button {
+    padding: 12px 20px;
+    margin-top: 15px;
+    background: #22c55e;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
+  }
+
+  button::after {
+    content: '➔';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+    opacity: 0;
+    transition: right 0.3s ease, opacity 0.3s ease;
+    font-weight: bold;
+  }
+  button:hover::after {
+    right: 15px;
+    opacity: 1;
+  }
+
+  .product-details { text-align: left; display: none; }
+
+  .product-details h3 { 
+    color: #22c55e; 
+    margin-bottom: 15px; 
+    text-align:center;
+  }
+
+  .product-details p { 
+    color: #cbd5e1; 
+    margin-bottom: 8px; 
+  }
+
+  .ai-suggestion {
+    margin-top: 15px;
+    padding: 15px;
+    background: #111827;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(34,197,94,0.3);
+    color: #22c55e;
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Farm2Fork 🌱</h1>
+
+<!-- QR Scan Section -->
+<div class="scan-card">
+  <p>Scan your product QR code:</p>
+  <div class="qr-placeholder">QR CODE AREA</div>
+  <input type="file" id="qrImageInput" accept="image/*">
+  <button id="cameraBtn"><i class="fas fa-camera"></i> Use Camera</button>
+</div>
+
+<!-- Product Details Section -->
+<div class="product-details" id="productDetails">
+  <h3>Product Details</h3>
+  <p><strong>Name:</strong> <span id="prodName"></span></p>
+  <p><strong>Farmer Name:</strong> <span id="prodFarmer"></span></p>
+  <p><strong>Farmer ID:</strong> <span id="prodFarmerId"></span></p>
+  <p><strong>Category:</strong> <span id="prodCategory"></span></p>
+  <p><strong>Quantity:</strong> <span id="prodQty"></span></p>
+  <p><strong>Harvest Date:</strong> <span id="prodDate"></span></p>
+  <p><strong>Organic/Non-organic:</strong> <span id="prodType"></span></p>
+  <p><strong>Storage Instructions:</strong> <span id="prodStorage"></span></p>
+  <p><strong>Middleman Price:</strong> $<span id="prodMiddlemanPrice"></span></p>
+  <p><strong>Consumer Price:</strong> $<span id="prodConsumerPrice"></span></p>
+  <p><strong>Other Notes:</strong> <span id="prodNotes"></span></p>
+  <div class="ai-suggestion" id="prodTip">
+    Suggested Usage / Health Tip: <span></span>
+  </div>
+</div>
+
+<script>
+const products = {
+  "QR12345": {
+    name:"Fresh Tomato", farmer:"Naya Ma", farmerId:"F123", category:"Vegetable",
+    qty:"10 kg", date:"2025-09-10", type:"Organic", storage:"Keep in cool dry place",
+    notes:"Red and ripe", tip:"Rich in Vitamin C, great for salads and cooking.",
+    middlemanPrice: "2.50", consumerPrice: "4.00"
+  },
+  "QR67890": {
+    name:"Organic Spinach", farmer:"John Doe", farmerId:"F456", category:"Leafy Vegetable",
+    qty:"5 kg", date:"2025-09-08", type:"Organic", storage:"Store in refrigerator",
+    notes:"Fresh leaves", tip:"Boosts iron levels, ideal for smoothies and stir-fry.",
+    middlemanPrice: "1.80", consumerPrice: "3.50"
+  }
+};
+
+function showProduct(code){
+  const prod = products[code] || {name:"Unknown", farmer:"Unknown", farmerId:"-", category:"-", qty:"-", date:"-", type:"-", storage:"-", notes:"-", tip:"No suggestion available.", middlemanPrice:"-", consumerPrice:"-"};
+  
+  document.getElementById('prodName').innerText = prod.name;
+  document.getElementById('prodFarmer').innerText = prod.farmer;
+  document.getElementById('prodFarmerId').innerText = prod.farmerId;
+  document.getElementById('prodCategory').innerText = prod.category;
+  document.getElementById('prodQty').innerText = prod.qty;
+  document.getElementById('prodDate').innerText = prod.date;
+  document.getElementById('prodType').innerText = prod.type;
+  document.getElementById('prodStorage').innerText = prod.storage;
+  document.getElementById('prodNotes').innerText = prod.notes;
+  document.getElementById('prodMiddlemanPrice').innerText = prod.middlemanPrice;
+  document.getElementById('prodConsumerPrice').innerText = prod.consumerPrice;
+  document.getElementById('prodTip').querySelector('span').innerText = prod.tip;
+
+  document.getElementById('productDetails').style.display = "block";
+}
+
+document.getElementById('qrImageInput').addEventListener('change', function(){
+  alert("QR scanned from image!");
+  showProduct("QR12345"); // simulate scan
+});
+
+document.getElementById('cameraBtn').addEventListener('click', function(){
+  alert("Camera scan started!");
+  showProduct("QR67890"); // simulate scan
+});
+</script>
+
+</body>
+</html>

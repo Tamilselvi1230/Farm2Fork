@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Admin Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #161b22;
+      box-shadow: 0 2px 8px rgba(0,255,153,0.3);
+    }
+    header h1 {
+      font-size: 1.5rem;
+      color: #00ff99;
+      margin: 0;
+    }
+    header button {
+      background: #00ff99;
+      color: #0d1117;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    header button:hover {
+      box-shadow: 0 0 12px #00ff99, 0 0 20px #00ff99;
+    }
+
+    /* Metric Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .card {
+      background: #111827;
+      border-radius: 10px;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 6px 15px rgba(0,255,153,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,255,153,0.5);
+    }
+    .card h2 {
+      font-size: 0.9rem;
+      color: #00ff99;
+      margin-bottom: 6px;
+    }
+    .card p {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #fff;
+      margin: 0;
+    }
+
+    /* Charts */
+    .charts {
+      display:flex; 
+      justify-content:center; 
+      gap:30px; 
+      flex-wrap:wrap; 
+      padding:0 20px 20px 20px;
+    }
+    .chart-container {
+      background: #111827;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 4px 15px rgba(0,255,153,0.3);
+    }
+    .line-chart { flex:2; min-width:300px; }
+    .pie-chart { flex:1; min-width:250px; }
+
+    canvas {
+      width: 100% !important;
+      height: 250px !important;
+    }
+
+    /* Tables */
+    table {
+      width: 95%;
+      margin: 0 auto 30px auto;
+      border-collapse: collapse;
+      background: #161b22;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,255,153,0.3);
+      font-size: 0.85rem;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #00ff99;
+      color: #0d1117;
+    }
+    tr:nth-child(even) { background: #1f2937; }
+    tr:hover { background: #0b131c; }
+
+    /* Cursor trail */
+    .trail {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: #00ff99;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade 0.5s linear forwards;
+    }
+    @keyframes fade {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.5); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Admin Analytics</h1>
+    <button onclick="goBack()">Back</button>
+  </header>
+
+  <!-- Metric Cards -->
+  <div class="cards">
+    <div class="card"><h2>Active Farmers</h2><p>120</p></div>
+    <div class="card"><h2>Active Products</h2><p>450</p></div>
+    <div class="card"><h2>Total Orders</h2><p>890</p></div>
+    <div class="card"><h2>Total Revenue</h2><p>₹75,000</p></div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts">
+    <!-- Farmer Growth Line Chart -->
+    <div class="chart-container line-chart">
+      <h2 style="color:#00ff99;text-align:center;font-size:0.9rem;">Farmer Growth Over Time</h2>
+      <canvas id="farmerGrowth"></canvas>
+    </div>
+
+    <!-- Order Status Pie Chart -->
+    <div class="chart-container pie-chart">
+      <h2 style="color:#00ff99;text-align:center;font-size:0.9rem;">Order Status Distribution</h2>
+      <canvas id="orderStatus"></canvas>
+    </div>
+  </div>
+
+  <!-- Recent Orders Table -->
+  <h2 style="color:#00ff99;text-align:center;font-size:0.9rem;">Recent Orders</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Farmer</th>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>O001</td><td>F001</td><td>Tomatoes</td><td>50kg</td><td style="color:#00ff99;font-weight:bold;">Delivered</td><td>2025-09-18</td></tr>
+      <tr><td>O002</td><td>F003</td><td>Potatoes</td><td>30kg</td><td style="color:#ffcc00;font-weight:bold;">Pending</td><td>2025-09-19</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Top Farmers Table -->
+  <h2 style="color:#00ff99;text-align:center;font-size:0.9rem;">Top Performing Farmers</h2>
+  <table>
+    <thead>
+      <tr><th>Farmer ID</th><th>Name</th><th>Total Orders</th><th>Total Revenue</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>F001</td><td>Farmer A</td><td>120</td><td>₹18,500</td></tr>
+      <tr><td>F002</td><td>Farmer B</td><td>95</td><td>₹17,200</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    // Back button
+    function goBack() { window.location.href = 'admin-dashboard.html'; }
+
+    // Cursor trail
+    document.addEventListener("mousemove", e => {
+      const trail = document.createElement("div");
+      trail.className = "trail";
+      trail.style.left = (e.pageX - 3) + "px";
+      trail.style.top = (e.pageY - 3) + "px";
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 500);
+    });
+
+    // Farmer Growth Chart with Neon Gradient
+    const ctxLine = document.getElementById('farmerGrowth').getContext('2d');
+    const gradient = ctxLine.createLinearGradient(0, 0, 0, 250);
+    gradient.addColorStop(0, 'rgba(0,255,153,0.5)');
+    gradient.addColorStop(1, 'rgba(0,255,153,0.05)');
+
+    new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'],
+        datasets: [{
+          label: 'Active Farmers',
+          data: [80,90,95,100,105,110,115,118,120],
+          borderColor: '#00ff99',
+          backgroundColor: gradient,
+          borderWidth: 3,
+          pointBackgroundColor: '#00ff99',
+          pointBorderColor: '#0d1117',
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          fill: true,
+          tension: 0.4,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#00ff99', font: { size: 12 } } },
+          tooltip: { 
+            backgroundColor: '#0d1117', 
+            titleColor: '#00ff99', 
+            bodyColor: '#00ff99', 
+            borderColor: '#00ff99', 
+            borderWidth: 1 
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#00ff99' }, grid: { color: '#333' } },
+          y: { ticks: { color: '#00ff99' }, grid: { color: '#333' } }
+        }
+      }
+    });
+
+    // Order Status Pie Chart with Neon Glow
+    const ctxPie = document.getElementById('orderStatus').getContext('2d');
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['Delivered','Pending','Cancelled'],
+        datasets: [{
+          data: [600,250,40],
+          backgroundColor: [
+            'rgba(0,255,153,0.8)',
+            'rgba(255,204,0,0.8)',
+            'rgba(255,77,77,0.8)'
+          ],
+          borderColor: '#0d1117',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: '#00ff99', font: { size: 12 } } },
+          tooltip: { 
+            backgroundColor: '#0d1117', 
+            titleColor: '#00ff99', 
+            bodyColor: '#00ff99', 
+            borderColor: '#00ff99', 
+            borderWidth: 1 
+          }
+        },
+        responsive: true
+      }
+    });
+  </script>
+
+</body>
+</html>

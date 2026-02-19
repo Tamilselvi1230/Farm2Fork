@@ -1,0 +1,280 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 100%;
+      background: #111827;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      gap: 25px;
+      box-shadow: 3px 0 8px rgba(0,0,0,0.6);
+      z-index: 1000;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #9ca3af;
+      text-align: center;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .sidebar a:hover { color: #22c55e; transform: scale(1.15); }
+    .sidebar i { font-size: 20px; margin-bottom: 5px; display: block; }
+    .main { margin-left: 80px; }
+    .swiper-slide { position: relative; height: 800px; justify-content: center; align-items: center; border: 5px solid rgb(3, 205, 97); box-sizing: border-box; } 
+    .swiper-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(100%); transition: transform 4s ease; }
+    .swiper-slide-active img { transform: scale(1.08); }
+    .tagline { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: none; padding: 14px 28px; border-radius: 25px; color: #ffffff; font-size: 50px; font-weight: 600; letter-spacing: 1px; text-align: center; }  
+    .vision { text-align: center; padding: 60px 30px; background: #111827; animation: fadeInUp 1.2s ease; }
+    .vision h2 { font-size: 34px; color: #22c55e; margin-bottom: 20px; animation: glow-text 2s infinite alternate; }
+    .vision p { font-size: 18px; color: #cbd5e1; max-width: 850px; margin: auto; line-height: 1.6; }
+    .cta-button { position: relative; display: inline-block; padding: 12px 28px; color: #fff; background: #22c55e; border-radius: 8px; overflow: hidden; cursor: pointer; font-weight: 600; margin-top: 20px; }
+    .cta-button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s ease; }
+    .cta-button:hover::before { left: 100%; }
+    .features { padding: 70px 30px; background: #0f172a; text-align: center; animation: fadeInUp 1.2s ease; }
+    .features h2 { font-size: 28px; color: #22c55e; margin-bottom: 40px; }
+    .feature-cards { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
+    .feature-card { background: #1f2937; width: 220px; padding: 30px; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.5); transition: all 0.3s ease; cursor: pointer; }
+    .feature-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 8px 20px rgba(34,197,94,0.5); }
+    .feature-card h3 { color: #22c55e; margin-bottom: 12px; font-size: 20px; }
+    .feature-card p { font-size: 15px; color: #cbd5e1; }
+    .dashboard { padding: 70px 30px; background: #111827; text-align: center; animation: fadeInUp 1.2s ease; }
+    .dashboard h2 { color: #22c55e; margin-bottom: 40px; }
+    .stats { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+    .stat-card { background: linear-gradient(135deg, #1f2937, #111827); padding: 30px; width: 220px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.7); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; cursor: pointer; }
+    .stat-card:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 8px 25px rgba(34,197,94,0.7); }
+    .stat-card h3 { color: #22c55e; font-size: 32px; margin-bottom: 10px; }
+    .stat-card p { font-size: 16px; color: #cbd5e1; }
+    footer { text-align: center; padding: 20px; background: #0d1117; color: #9ca3af; font-size: 14px; border-top: 1px solid #1f2937; }
+    .language-selector { position: fixed; top: 15px; right: 20px; z-index: 1100; }
+    .language-selector select { background: #111827; color: #22c55e; border: 1px solid #22c55e; padding: 6px 10px; border-radius: 6px; font-family: 'Poppins', sans-serif; cursor: pointer; }
+    .language-selector select:hover { background: #1f2937; }
+    #sparkle-canvas {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   pointer-events: none; /* so it doesn't block clicks */
+   z-index: 9999;
+}
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes glow-text { from { filter: drop-shadow(0 0 20px rgba(0, 255, 127, 0.3)); } to { filter: drop-shadow(0 0 40px rgba(0, 255, 127, 0.6)); } }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\home1.html"><i class="fas fa-home"></i><span data-en="Home" data-ta="முகப்பு" data-or="ହୋମ୍">Home</span></a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\farmer-log.html"><i class="fas fa-tractor"></i><span data-en="Farmer" data-ta="விவசாயி" data-or="କୃଷକ">Farmer</span></a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\middleman-log.html"><i class="fas fa-truck"></i><span data-en="Middleman" data-ta="நடுநிலைவர்" data-or="ମଧ୍ୟସ୍ଥ">Middleman</span></a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\govtoff-log.html"><i class="fas fa-landmark"></i><span data-en="Govt" data-ta="அரசு" data-or="ସରକାର">Govt</span></a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\consumer1.html"><i class="fas fa-user"></i><span data-en="Consumer" data-ta="நுகர்வோர்" data-or="ଉପଭୋକ୍ତା">Consumer</span></a> 
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\admin-log.html"><i class="fas fa-user-shield"></i><span data-en="Admin" data-ta="நிர்வாகி" data-or="ପ୍ରଶାସକ">Admin</span></a>
+    <a href="C:\Users\Admin\Desktop\Farm2Fork\About1.html"><i class="fas fa-info-circle"></i><span data-en="About" data-ta="பற்றி" data-or="ବିଷୟରେ">About</span></a>
+  </div>
+
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select id="language">
+      <option value="en">English</option>
+      <option value="ta">தமிழ்</option>
+      <option value="or">ଓଡ଼ିଆ</option>
+    </select>
+  </div>
+  <canvas id="sparkle-canvas"></canvas>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Carousel -->
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="C:\Users\Admin\Downloads\WhatsApp Image 2025-09-18 at 11.15.55 AM.jpeg" alt="">
+          <div class="tagline" data-en="From Farm to Your Plate 🌱" data-ta="உங்கள் பங்கிற்கு பண்ணையிலிருந்து 🌱" data-or="ପାଳି ଠାରୁ ଆପଣଙ୍କ ପ୍ଲେଟ ପର୍ଯ୍ୟନ୍ତ 🌱">From Farm to Your Plate 🌱</div>
+        </div>
+        <div class="swiper-slide">
+          <img src="C:\Users\Admin\Downloads\WhatsApp Image 2025-09-18 at 11.16.21 AM.jpeg" alt="">
+          <div class="tagline">📡</div>
+        </div>
+        <div class="swiper-slide">
+          <img src="C:\Users\Admin\Downloads\WhatsApp Image 2025-09-18 at 11.16.20 AM.jpeg" alt="">
+          <div class="tagline" data-en="Blockchain-backed Trust 🔗" data-ta="பிளாக்செயின் ஆதரவு நம்பிக்கை 🔗" data-or="ବ୍ଲକଚେନ୍ ସମର୍ଥିତ ଭରସା 🔗">Blockchain-backed Trust 🔗</div>
+        </div>
+        <div class="swiper-slide">
+          <img src="C:\Users\Admin\Downloads\WhatsApp Image 2025-09-18 at 12.01.00 PM.jpeg" alt="">
+          <div class="tagline" data-en="Scan & Verify Product Journey 📱" data-ta="தயாரிப்பு பயணத்தை ஸ்கேன் செய்து சரிபார்க்கவும் 📱" data-or="ପ୍ରଡକ୍ଟ ଯାତ୍ରା ସ୍କାନ୍ କରନ୍ତୁ ଏବଂ ସତ୍ୟାପିତ କରନ୍ତୁ 📱">Scan & Verify Product Journey 📱</div>
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Vision Section -->
+    <section class="vision" id="about">
+      <h2 data-en="Empowering Transparency in the Agricultural Supply Chain" data-ta="விவசாய சப்ளை சங்கிலியில் வெளிப்படைத்தன்மையை மேம்படுத்துதல்" data-or="କୃଷି ସପ୍ଲାଇ ଚେନରେ ପରଦର୍ଶିତାକୁ ସଶକ୍ତ କରୁଛି">Empowering Transparency in the Agricultural Supply Chain</h2>
+      <p data-en="Our platform ensures trust, fair pricing, and sustainability across the farm-to-fork journey with blockchain, IoT, and smart contracts." 
+         data-ta="எங்கள் தளம் பிளாக்செயின், IoT மற்றும் ஸ்மார்ட் ஒப்பந்தங்களுடன் பண்ணையிலிருந்து நுகர்வோர் வரை நம்பிக்கை, நியாயமான விலை மற்றும் நிலைத்தன்மையை உறுதி செய்கிறது."
+         data-or="ଆମ ପ୍ଲାଟଫର୍ମ ବ୍ଲକଚେନ୍, IoT ଏବଂ ସ୍ମାର୍ଟ କଂଟ୍ରାକ୍ଟ ସହିତ ପାଳି ଠାରୁ ଫୁଡ୍ ପ୍ଲେଟ ପର୍ଯ୍ୟନ୍ତ ଭରସା, ନ୍ୟାୟସଙ୍ଗତ ମୂଲ୍ୟ ଏବଂ ସ୍ଥିରତାକୁ ସୁନିଶ୍ଚିତ କରେ।">
+        Our platform ensures trust, fair pricing, and sustainability across the farm-to-fork journey with blockchain, IoT, and smart contracts.
+      </p>
+      <a href="C:\Users\Admin\Desktop\Farm2Fork\farmer-reg.html" class="cta-button" data-en="Join Now" data-ta="இப்போதே சேரவும்" data-or="ଏବେ ଯୋଗଦାନ କରନ୍ତୁ">Join Now</a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2 data-en="Core Features" data-ta="முக்கிய அம்சங்கள்" data-or="ମୂଳ ବୈଶିଷ୍ଟ୍ୟଗୁଡିକ">Core Features</h2>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <h3 data-en="🔍 Transparency" data-ta="🔍 வெளிப்படைத்தன்மை" data-or="🔍 ପରଦର୍ଶିତା">🔍 Transparency</h3>
+          <p data-en="Track every product’s journey with blockchain-backed records." data-ta="பிளாக்செயின் பதிவுகளுடன் ஒவ்வொரு தயாரிப்பின் பயணத்தையும் கண்காணிக்கவும்." data-or="ବ୍ଲକଚେନ୍ ସମର୍ଥିତ ରେକର୍ଡ ସହିତ ପ୍ରତ୍ୟେକ ପ୍ରଡକ୍ଟର ଯାତ୍ରାକୁ ଟ୍ରାକ୍ କରନ୍ତୁ।">Track every product’s journey with blockchain-backed records.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-en="🤝 Trust" data-ta="🤝 நம்பிக்கை" data-or="🤝 ଭରସା">🤝 Trust</h3>
+          <p data-en="Secure interactions between farmers, middlemen, and consumers." data-ta="விவசாயிகள், நடுநிலைவர்கள் மற்றும் நுகர்வோருக்கிடையிலான பாதுகாப்பான தொடர்புகள்." data-or="କୃଷକ, ମଧ୍ୟସ୍ଥ ଏବଂ ଉପଭୋକ୍ତାଙ୍କ ମଧ୍ୟରେ ସୁରକ୍ଷିତ ଇଣ୍ଟରଏକ୍ସନ୍।">Secure interactions between farmers, middlemen, and consumers.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-en="✅ Food Safety" data-ta="✅ உணவு பாதுகாப்பு" data-or="✅ ଖାଦ୍ୟ ସୁରକ୍ଷା">✅ Food Safety</h3>
+          <p data-en="IoT sensors maintain product quality during storage & delivery." data-ta="IoT சென்சார்கள் சேமிப்பு மற்றும் விநியோகத்தின் போது தயாரிப்பு தரத்தை பராமரிக்கின்றன." data-or="ସଂରକ୍ଷଣ ଏବଂ ଡିଲିଭରୀ ସମୟରେ ପ୍ରଡକ୍ଟ ଗୁଣବତ୍ତାକୁ IoT ସେନ୍ସର ରକ୍ଷା କରେ।">IoT sensors maintain product quality during storage & delivery.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-en="🌱 Sustainability" data-ta="🌱 நிலைத்தன்மை" data-or="🌱 ସ୍ଥିରତା">🌱 Sustainability</h3>
+          <p data-en="Promoting eco-friendly farming and reducing food waste." data-ta="சூழல் நட்பு விவசாயத்தை ஊக்குவித்து, உணவுக் கழிவுகளை குறைக்கிறது." data-or="ପରିବେଶ ପ୍ରିୟ କୃଷିକୁ ପ୍ରୋତ୍ସାହନ ଦିଅନ୍ତୁ ଏବଂ ଖାଦ୍ୟ ଅପଚୟ କମାନ୍ତୁ।">Promoting eco-friendly farming and reducing food waste.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-en="📊 Analytics" data-ta="📊 பகுப்பாய்வு" data-or="📊 ବିଶ୍ଳେଷଣ">📊 Analytics</h3>
+          <p data-en="Real-time insights for farmers and administrators." data-ta="விவசாயிகள் மற்றும் நிர்வாகிகளுக்கான நேரடி பார்வைகள்." data-or="କୃଷକ ଏବଂ ପ୍ରଶାସକଙ୍କ ପାଇଁ ରିୟଲ୍-ଟାଇମ୍ ଇନସାଇଟ୍।">Real-time insights for farmers and administrators.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-en="📦 Supply Chain" data-ta="📦 சப்ளை சங்கிலி" data-or="📦 ସପ୍ଲାଇ ଚେନ୍">📦 Supply Chain</h3>
+          <p data-en="End-to-end tracking from farm to consumer." data-ta="பண்ணையிலிருந்து நுகர்வோர் வரை தொடக்கம் முதல் முடிவு வரை கண்காணிப்பு." data-or="ପାଳି ଠାରୁ ଉପଭୋକ୍ତା ପର୍ଯ୍ୟନ୍ତ ଏଣ୍ଡ-ଟୁ-ଏଣ୍ଡ ଟ୍ରାକିଂ।">End-to-end tracking from farm to consumer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+      <h2 data-en="Platform Snapshot" data-ta="மேடையின் கண்ணோட்டம்" data-or="ପ୍ଲାଟଫର୍ମ ସ୍ନାପ୍ଶଟ୍">Platform Snapshot</h2>
+      <div class="stats">
+        <div class="stat-card"><h3 id="farmers">0</h3><p data-en="Farmers Registered" data-ta="பதிவுசெய்யப்பட்ட விவசாயிகள்" data-or="ପଞ୍ଜିକୃତ କୃଷକ">Farmers Registered</p></div>
+        <div class="stat-card"><h3 id="products">0</h3><p data-en="Verified Products" data-ta="சரிபார்க்கப்பட்ட தயாரிப்புகள்" data-or="ସତ୍ୟାପିତ ପ୍ରଡକ୍ଟ">Verified Products</p></div>
+        <div class="stat-card"><h3 id="shipments">0</h3><p data-en="Target Achieved" data-ta="நோக்கம் அடைந்தது" data-or="ଲକ୍ଷ୍ୟ ସାଧିତ">Target Achieved</p></div>
+        <div class="stat-card"><h3 id="inspections">0</h3><p data-en="Pending Inspections" data-ta="நிலுவையில் உள்ள ஆய்வுகள்" data-or="ବକାୟା ନିରୀକ୍ଷଣ">Pending Inspections</p></div>
+      </div>
+    </section>
+
+    <footer data-en="© 2025 Farm2Fork | Built with Trust & Transparency 🌱" data-ta="© 2025 பண்ணையிலிருந்து பங்கிற்கு | நம்பிக்கை மற்றும் வெளிப்படைத்தன்மையுடன் உருவாக்கப்பட்டது 🌱" data-or="© 2025 Farm2Fork | ଭରସା ଏବଂ ପରଦର୍ଶିତା ସହିତ ନିର୍ମିତ 🌱">
+      © 2025 Farm2Fork | Built with Trust & Transparency 🌱
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop:true,
+      autoplay:{ delay:3500, disableOnInteraction:false },
+      pagination:{ el:'.swiper-pagination', clickable:true },
+      navigation:{ nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev' },
+      effect:'slide'
+    });
+
+    function simulateDashboardData() {
+      document.getElementById('farmers').textContent = Math.floor(Math.random() * 170);
+      document.getElementById('products').textContent = Math.floor(Math.random() * 70);
+      document.getElementById('shipments').textContent = Math.floor(Math.random() * 50);
+      document.getElementById('inspections').textContent = Math.floor(Math.random() * 30);
+    }
+    simulateDashboardData();
+    setInterval(simulateDashboardData, 5000);
+
+    // Language Switcher
+    document.getElementById('language').addEventListener('change', function() {
+      const lang = this.value;
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+      // Cursor Sparkler Effect
+const canvas = document.getElementById("sparkle-canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = Math.random() * 2 + 1;
+    this.speedX = (Math.random() - 0.5) * 2;
+    this.speedY = (Math.random() - 0.5) * 2;
+    this.life = 60;
+    this.color = `rgba(34,197,94,${Math.random()})`; // green sparkle
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life -= 2;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+function handleParticles() {
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].draw();
+    if (particles[i].life <= 0) { particles.splice(i,1); i--; }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  handleParticles();
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("mousemove", (e) => {
+  for (let i = 0; i < 2; i++) {
+    particles.push(new Particle(e.x, e.y));
+  }
+});
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+    });
+  </script>
+</body>
+</html>

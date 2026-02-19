@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Admin Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ------------------- Base Styles ------------------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ------------------- Heading ------------------- */
+    .page-heading {
+      font-size: 2.5rem;
+      color: #00ff99;
+      margin-bottom: 30px;
+    }
+
+    /* ------------------- Login Container ------------------- */
+    .login-container {
+      background: #111827;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.3);
+      width: 400px;
+      text-align: center;
+    }
+    .login-container h1 {
+      color: #00ff99;
+      margin-bottom: 30px;
+    }
+
+    /* ------------------- Input Fields ------------------- */
+    .login-container input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #00ff99;
+      background: #0d1117;
+      color: #00ff99;
+      font-size: 14px;
+      outline: none;
+    }
+    .login-container input:focus {
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    /* ------------------- Buttons ------------------- */
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #00ff99;
+      color: #0d1117;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+    .login-container button:hover {
+      background: #0d1117;
+      color: #00ff99;
+      border: 2px solid #00ff99;
+    }
+
+    /* ------------------- Security / 2FA ------------------- */
+    .otp-section, .security-question {
+      display: none;
+      margin-top: 15px;
+    }
+    .otp-section.active, .security-question.active {
+      display: block;
+    }
+
+    /* ------------------- Links ------------------- */
+    .login-container .links {
+      margin-top: 15px;
+      font-size: 12px;
+    }
+    .login-container .links a {
+      color: #00ff99;
+      text-decoration: none;
+    }
+    .login-container .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Heading -->
+  <h1 class="page-heading">Farm2Fork🌱</h1>
+
+  <div class="login-container">
+    <h1>Admin Login</h1>
+    <!-- Step 1: Admin Credentials -->
+    <div class="login-step login-credentials">
+      <input type="text" placeholder="Admin ID" id="adminId">
+      <input type="password" placeholder="Password" id="adminPass">
+      <input type="email" placeholder="Registered Email" id="adminEmail">
+      <div class="links">
+        <a href="#">Forgot Password?</a> | 
+        <a href="admin-reg.html">Register Now</a>
+      </div>
+      <button id="nextBtn">Next</button>
+    </div>
+
+    <!-- Step 2: OTP Verification -->
+    <div class="otp-section" id="otpSection">
+      <p>Enter the OTP sent to your email</p>
+      <input type="text" placeholder="OTP" id="adminOtp">
+      <button id="verifyOtpBtn">Verify OTP</button>
+    </div>
+
+    <!-- Step 3: Security Question -->
+    <div class="security-question" id="securityQuestion">
+      <p>What is your favorite farm?</p>
+      <input type="text" placeholder="Answer">
+      <button id="finalLoginBtn">Login</button>
+    </div>
+  </div>
+
+  <script>
+    // Multi-step login simulation
+    const nextBtn = document.getElementById("nextBtn");
+    const otpSection = document.getElementById("otpSection");
+    const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+    const securityQuestion = document.getElementById("securityQuestion");
+
+    nextBtn.addEventListener("click", () => {
+      document.querySelector(".login-credentials").style.display = "none";
+      otpSection.classList.add("active");
+    });
+
+    verifyOtpBtn.addEventListener("click", () => {
+      otpSection.classList.remove("active");
+      securityQuestion.classList.add("active");
+    });
+
+    document.getElementById("finalLoginBtn").addEventListener("click", () => {
+      alert("Admin successfully logged in");
+      // Redirect to Admin Dashboard
+      window.location.href = "admin-dashboard.html";
+    });
+  </script>
+
+</body>
+</html>

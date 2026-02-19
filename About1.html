@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farm2Fork - About</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body { margin: 0; font-family: 'Poppins', sans-serif; background: #0d1117; color: #e6e6e6; scroll-behavior: smooth; }
+  .sidebar { position: fixed; top: 0; left: -100px; width: 80px; height: 100%; background: #111827; display: flex; flex-direction: column; align-items: center; padding-top: 20px; gap: 25px; box-shadow: 3px 0 8px rgba(0,0,0,0.6); z-index: 1000; transition: left 0.4s ease; }
+  .sidebar.show { left: 0; }
+  .sidebar a { text-decoration: none; color: #9ca3af; text-align: center; font-size: 12px; position: relative; display: inline-block; overflow: hidden; transition: transform 0.3s ease; }
+  .sidebar a:hover { transform: scale(1.15); color: #22c55e; }
+  .sidebar i { font-size: 20px; margin-bottom: 5px; display: block; }
+  .sidebar a::after { content: '➔'; position: absolute; right: -20px; color: #22c55e; opacity: 0; transition: right 0.3s ease, opacity 0.3s ease; }
+  .sidebar a:hover::after { right: 10px; opacity: 1; }
+
+  .main { margin-left: 80px; padding: 40px 30px; }
+  h2 { color: #22c55e; margin-bottom: 20px; text-align: center; }
+  p, li { color: #cbd5e1; line-height: 1.6; }
+  section { margin-bottom: 60px; opacity: 0; animation: fadeInUp 1s forwards; }
+  .list { max-width: 900px; margin: auto; padding: 0 20px; }
+  .list li { margin-bottom: 12px; }
+
+  .card { background: #1f2937; padding: 20px; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.5); margin-bottom: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 20px rgba(34,197,94,0.5); }
+
+  .accordion { cursor: pointer; padding: 15px; background: #111827; border-radius: 8px; margin-bottom: 10px; position: relative; }
+  .accordion::after { content: '\f107'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: 20px; }
+  .panel { display: none; padding: 10px; background: #1f2937; border-radius: 8px; }
+
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+  .team-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+  .team-card { background: #1f2937; padding: 20px; border-radius: 16px; width: 220px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.5); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
+  .team-card:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 8px 20px rgba(34,197,94,0.5); }
+  .team-card h3 { color: #22c55e; margin-bottom: 8px; font-size: 18px; }
+  .team-card p { font-size: 14px; color: #cbd5e1; }
+
+  .tooltip { position: relative; cursor: help; }
+  .tooltip::after { content: attr(data-text); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: #111827; color: #22c55e; padding: 5px 10px; border-radius: 5px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; white-space: nowrap; }
+  .tooltip:hover::after { opacity: 1; }
+
+  .contact-form { max-width: 600px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
+  .contact-form input, .contact-form textarea { padding: 12px; border-radius: 8px; border: none; font-size: 14px; }
+  .contact-form button { padding: 12px; background: #22c55e; color: #fff; font-weight: 600; border-radius: 8px; cursor: pointer; border: none; transition: all 0.3s ease; }
+  .contact-form button:hover { background: #16a34a; }
+
+  footer { text-align: center; padding: 20px; background: #0d1117; color: #9ca3af; font-size: 14px; border-top: 1px solid #1f2937; }
+
+  @keyframes glow-text { from { filter: drop-shadow(0 0 20px rgba(0, 255, 127, 0.3)); } to { filter: drop-shadow(0 0 40px rgba(0, 255, 127, 0.6)); } }
+
+  #langSelect { position: fixed; top: 20px; right: 20px; z-index: 1200; padding: 8px 12px; border-radius: 6px; border: none; background:#22c55e; color:#fff; cursor:pointer; font-weight:600; }
+</style>
+</head>
+<body>
+
+<div id="menu-btn" style="position: fixed; top: 20px; left: 20px; z-index: 1100; cursor: pointer; color:#22c55e; font-size:24px;"><i class="fas fa-bars"></i></div>
+
+<div class="sidebar">
+  <a href="home1.html"><i class="fas fa-home"></i><span class="lang" data-en="Home" data-ta="முகப்பு" data-or="ମୁଖପୃଷ୍ଠା">Home</span></a>
+  <a href="farmer-log.html"><i class="fas fa-tractor"></i><span class="lang" data-en="Farmer" data-ta="விவசாயி" data-or="କୃଷକ">Farmer</span></a>
+  <a href="middleman-log.html"><i class="fas fa-truck"></i><span class="lang" data-en="Middleman" data-ta="இடைத்தரகர்" data-or="ମଧ୍ୟସ୍ଥ">Middleman</span></a>
+  <a href="govtoff-log.html"><i class="fas fa-landmark"></i><span class="lang" data-en="Govt" data-ta="அரசு" data-or="ସରକାର">Govt</span></a>
+  <a href="consumer1.html"><i class="fas fa-user"></i><span class="lang" data-en="Consumer" data-ta="நுகர்வோர்" data-or="ଉପଭୋକ୍ତା">Consumer</span></a>
+  <a href="admin-log.html"><i class="fas fa-user-shield"></i><span class="lang" data-en="Admin" data-ta="நிர்வாகி" data-or="ପ୍ରଶାସକ">Admin</span></a>
+  <a href="About1.html"><i class="fas fa-info-circle"></i><span class="lang" data-en="About" data-ta="பற்றி" data-or="ବିଷୟରେ">About</span></a>
+</div>
+
+<select id="langSelect">
+  <option value="en">English</option>
+  <option value="ta">தமிழ்</option>
+  <option value="or">ଓଡ଼ିଆ</option>
+</select>
+
+<div style="text-align: center; padding: 40px 20px; background: #0d1117; border-bottom: 1px solid #1f2937;">
+  <h1 style="color: #22c55e; font-size: 48px; font-weight: 700; margin: 0; animation: glow-text 2s infinite alternate;">Farm2Fork</h1>
+  <p class="lang" data-en="Empowering Transparency in Agriculture" data-ta="விவசாயத்தில் வெளிப்படைத்தன்மையை மேம்படுத்துதல்" data-or="କୃଷିରେ ପ୍ରତିଦର୍ଶିତାକୁ ସଶକ୍ତ କରିବା">Empowering Transparency in Agriculture</p>
+</div>
+
+<!-- Vision Section -->
+<section id="vision" class="card">
+  <h2 class="lang" data-en="Empowering Transparency in the Agricultural Supply Chain" data-ta="விவசாய விநியோக சங்கிலியில் வெளிப்படைத்தன்மையை மேம்படுத்துதல்" data-or="କୃଷି ଆପୂର୍ତ୍ତି ଶୃଙ୍ଖଳରେ ପ୍ରତିଦର୍ଶିତାକୁ ସଶକ୍ତ କରିବା">Empowering Transparency in the Agricultural Supply Chain</h2>
+  <p class="lang" data-en="Our mission is to provide a transparent, secure, and sustainable supply chain from farm to fork using blockchain, IoT, and smart contracts." data-ta="எங்கள் இலக்கு, பிளாக்செயின், ஐஓடி மற்றும் ஸ்மார்ட் கான்ட்ராக்ட்கள் பயன்படுத்தி பண்ணையிலிருந்து நுகர்வவர்க்கு வரை வெளிப்படையான, பாதுகாப்பான மற்றும் நிலையான விநியோக சங்கிலியை வழங்குவதாகும்." data-or="ଆମର ଲକ୍ଷ୍ୟ ହେଉଛି ବ୍ଲକଚେନ, ଆଇଓଟି ଏବଂ ସ୍ମାର୍ଟ କନ୍ଟ୍ରାକ୍ଟ ବ୍ୟବହାର କରି କୃଷକରୁ ଉପଭୋକ୍ତା ପର୍ଯ୍ୟନ୍ତ ପ୍ରତିଦର୍ଶୀ, ସୁରକ୍ଷିତ ଏବଂ ସସ୍ଥାୟୀ ଆପୂର୍ତ୍ତି ଶୃଙ୍ଖଳ ପ୍ରଦାନ କରିବା।">Our mission is to provide a transparent, secure, and sustainable supply chain...</p>
+  <ul class="list">
+    <li class="lang" data-en="Transparency in every step" data-ta="ஒவ்வொரு படியிலும் வெளிப்படைத்தன்மை" data-or="ପ୍ରତ୍ୟେକ ପଦକ୍ଷେପରେ ପ୍ରତିଦର୍ଶିତା">Transparency in every step</li>
+    <li class="lang" data-en="Empowerment of farmers and consumers" data-ta="விவசாயிகள் மற்றும் நுகர்வோருக்கு அதிகாரமளித்தல்" data-or="କୃଷକ ଏବଂ ଉପଭୋକ୍ତାଙ୍କ ସଶକ୍ତିକରଣ">Empowerment of farmers and consumers</li>
+    <li class="lang" data-en="Ensuring food safety with technology" data-ta="தொழில்நுட்பத்துடன் உணவு பாதுகாப்பை உறுதி செய்தல்" data-or="ପ୍ରଯୁକ୍ତି ସହିତ ଖାଦ୍ୟ ସୁରକ୍ଷା ନିଶ୍ଚିତ କରିବା">Ensuring food safety with technology</li>
+    <li class="lang" data-en="Supporting sustainability in agriculture" data-ta="விவசாயத்தில் நிலைத்தன்மைக்கு ஆதரவளித்தல்" data-or="କୃଷିରେ ସସ୍ଥାୟୀତାକୁ ସମର୍ଥନ କରିବା">Supporting sustainability in agriculture</li>
+  </ul>
+</section>
+
+<!-- Objectives Section -->
+<section id="objectives" class="card">
+  <h2 class="lang" data-en="Our Core Objectives" data-ta="எங்கள் முக்கிய குறிக்கோள்கள்" data-or="ଆମର ମୂଳ ଲକ୍ଷ୍ୟ">Our Core Objectives</h2>
+  <div class="accordion lang" data-en="Transparency" data-ta="வெளிப்படைத்தன்மை" data-or="ପ୍ରତିଦର୍ଶିତା">Transparency</div>
+  <div class="panel lang" data-en="Ensure full traceability from farm to consumer." data-ta="பண்ணையிலிருந்து நுகர்வவருக்கான முழுமையான கண்காணிப்பை உறுதி செய்தல்." data-or="କୃଷକରୁ ଉପଭୋକ୍ତା ପର୍ଯ୍ୟନ୍ତ ସମ୍ପୂର୍ଣ୍ଣ ଟ୍ରାସେବିଲିଟି ସୁନିଶ୍ଚିତ କରିବା।">Ensure full traceability...</div>
+  <div class="accordion lang" data-en="Trust" data-ta="நம்பிக்கை" data-or="ନିଶ୍ଚୟ">Trust</div>
+  <div class="panel lang" data-en="Build a trust-based ecosystem for farmers, middlemen, and consumers." data-ta="விவசாயிகள், இடைத்தரகர் மற்றும் நுகர்வோருக்கு நம்பிக்கையான சூழலை உருவாக்குதல்." data-or="କୃଷକ, ମଧ୍ୟସ୍ଥ ଏବଂ ଉପଭୋକ୍ତାଙ୍କ ପାଇଁ ନିଶ୍ଚୟ-ଆଧାରିତ ପରିବେଶ ତିଆରି କରିବା।">Build a trust-based ecosystem...</div>
+  <div class="accordion lang" data-en="Fair Pricing" data-ta="நியாயமான விலை" data-or="ନ୍ୟାୟସଙ୍ଗତ ମୂଲ୍ୟ">Fair Pricing</div>
+  <div class="panel lang" data-en="Lock prices at the farmer level and ensure middlemen cannot inflate them." data-ta="விலை விவசாயி மட்டத்தில் பூட்டப்பட்டு, இடைத்தரகர் அதிகரிக்க முடியாததாக உறுதி செய்தல்." data-or="ମୂଲ୍ୟକୁ କୃଷକ ସ୍ତରରେ ଲକ୍ କରନ୍ତୁ ଏବଂ ମଧ୍ୟସ୍ଥ ଏହାକୁ ବୃଦ୍ଧି କରିପାରିବେ ନାହିଁ।">Lock prices at the farmer level...</div>
+  <div class="accordion lang" data-en="Security" data-ta="பாதுகாப்பு" data-or="ସୁରକ୍ଷା">Security</div>
+  <div class="panel lang" data-en="Use blockchain for tamper-proof data records and smart contracts." data-ta="தடையற்ற தரவு பதிவுகள் மற்றும் ஸ்மார்ட் கான்ட்ராக்டுகளுக்காக பிளாக்செயின் பயன்படுத்துதல்." data-or="ଚୁରାଇ ନ ଯାଉଥିବା ଡାଟା ରେକର୍ଡ ଏବଂ ସ୍ମାର୍ଟ କନ୍ଟ୍ରାକ୍ଟ ପାଇଁ ବ୍ଲକଚେନ ବ୍ୟବହାର କରନ୍ତୁ।">Use blockchain for tamper-proof data records...</div>
+  <div class="accordion lang" data-en="Sustainability" data-ta="நிலைத்தன்மை" data-or="ସସ୍ଥାୟୀତା">Sustainability</div>
+  <div class="panel lang" data-en="Promote eco-friendly farming practices, organic produce, and reduce waste." data-ta="சூழல் நட்பு விவசாய நடைமுறைகள், உயிரி உற்பத்தி, மற்றும் வீணை குறைக்க ஊக்குவித்தல்." data-or="ପରିବେଶ-ମିତ୍ର କୃଷି ପ୍ରଥା, ଓର୍ଗାନିକ ଉତ୍ପାଦନ ଏବଂ ବ୍ୟର୍ଥକୁ କମାଇବା ପ୍ରଚାର କରନ୍ତୁ।">Promote eco-friendly farming practices...</div>
+</section>
+
+<!-- Technologies Section -->
+<section id="technologies" class="card">
+  <h2 class="lang" data-en="Technologies Powering the Project" data-ta="திட்டத்தை இயக்கும் தொழில்நுட்பங்கள்" data-or="ପ୍ରକଳ୍ପକୁ ସଚଳ କରୁଥିବା ପ୍ରଯୁକ୍ତି">Technologies Powering the Project</h2>
+  <ul class="list">
+    <li class="lang" data-en="Blockchain: For transparent product records." data-ta="பிளாக்செயின்: வெளிப்படையான தயாரிப்பு பதிவுகளுக்காக" data-or="ବ୍ଲକଚେନ: ପ୍ରତିଦର୍ଶୀ ଉତ୍ପାଦ ରେକର୍ଡ ପାଇଁ">Blockchain: For transparent product records.</li>
+    <li class="lang" data-en="IoT Sensors: Monitor transport and storage." data-ta="ஐஓடி சென்சார்கள்: போக்குவரத்து மற்றும் சேமிப்பை கண்காணிக்க" data-or="ଆଇଓଟି ସେନ୍ସର: ପରିବହନ ଏବଂ ସଂରକ୍ଷଣକୁ ନିରୀକ୍ଷଣ କରନ୍ତୁ">IoT Sensors: Monitor transport and storage.</li>
+    <li class="lang" data-en="Smart Contracts: Automate verification and approvals." data-ta="ஸ்மார்ட் கான்ட்ராக்டுகள்: சான்று மற்றும் அனுமதிகளை தானாகச் செய்ய" data-or="ସ୍ମାର୍ଟ କନ୍ଟ୍ରାକ୍ଟ: ସତ୍ୟାପନ ଏବଂ ଅନୁମୋଦନ ସ୍ୱୟଂଚାଳିତ କରନ୍ତୁ">Smart Contracts: Automate verification...</li>
+    <li class="lang" data-en="QR Code Scanning: Real-time product verification." data-ta="QR குறியீடு ஸ்கேன்: நேரடி தயாரிப்பு சான்று" data-or="QR କୋଡ୍ ସ୍କାନିଂ: ରିଆଲ୍-ଟାଇମ୍ ଉତ୍ପାଦ ସତ୍ୟାପନ">QR Code Scanning: Real-time product verification.</li>
+    <li class="lang" data-en="Cloud & AI: Data storage and fraud detection." data-ta="கிளவுட் மற்றும் செயற்கை நுண்ணறிவு: தரவு சேமிப்பு மற்றும் மோசடி கண்டறிதல்" data-or="କ୍ଲାଉଡ୍ & ଏଆଇ: ଡାଟା ସଂରକ୍ଷଣ ଏବଂ ଠକବାଜି ଚିହ୍ନଟ">Cloud & AI: Data storage...</li>
+    <li class="lang" data-en="Mobile/Web App: User-friendly interactions." data-ta="மொபைல்/வெப் செயலி: பயனர் நட்பான இடைமுகம்" data-or="ମୋବାଇଲ୍/ୱେବ୍ ଆପ୍: ବ୍ୟବହାରକାରୀ ମିଳିତ ଇଣ୍ଟରାକ୍ସନ୍">Mobile/Web App: User-friendly interactions.</li>
+  </ul>
+</section>
+
+<!-- Team Section -->
+<section id="team" class="card">
+  <h2 class="lang" data-en="Hello! We are SIXERS" data-ta="வணக்கம்! நாங்கள் SIXERS" data-or="ନମସ୍କାର! ଆମେ SIXERS">Hello! We are SIXERS</h2>
+  <div class="team-cards">
+    <div class="team-card"><h3 class="lang" data-en="TamilSelvi S" data-ta="தமிழ்செல்வி எஸ்" data-or="ତାମିଲସେଲଭି S">Naya Ma</h3><p class="lang" data-en="Founder & CEO – Visionary behind the project" data-ta="நிறுவனர் மற்றும் முதன்மை அதிகாரி – திட்டத்தின் கண்ணோட்ட நிபுணர்" data-or="ସଂସ୍ଥାପକ & CEO – ପ୍ରକଳ୍ପ ପଛରେ ଦୃଷ୍ଟିଶୀଳ">Founder & CEO – Visionary behind the project</p></div>
+    <div class="team-card"><h3 class="lang" data-en="Vijaya Shanmathi V" data-ta="விஜயா ஷன்மதி வி" data-or="ବିଜୟା ଶାନମଥି V">Tech Lead</h3><p class="lang" data-en="Overseeing UI/UX & platform architecture" data-ta="UI/UX மற்றும் தளம் கட்டமைப்பைக் கண்காணித்தல்" data-or="UI/UX ଏବଂ ପ୍ଲାଟଫର୍ମ ଆର୍କିଟେକ୍ଚର ନିରୀକ୍ଷଣ କରୁଛନ୍ତି">Overseeing UI/UX & platform architecture</p></div>
+    <div class="team-card"><h3 class="lang" data-en="Swetha A" data-ta="சுவேதா ஆ" data-or="ସ୍ବେଥା A">UI/UX Designer</h3><p class="lang" data-en="Designing user interfaces and experiences" data-ta="பயனர் இடைமுகங்களையும் அனுபவங்களையும் வடிவமைத்தல்" data-or="ବ୍ୟବହାରକାରୀ ଇଣ୍ଟରଫେସ୍ ଏବଂ ଅନୁଭବ ଡିଜାଇନ୍ କରିବା">Designing user interfaces and experiences</p></div>
+    <div class="team-card"><h3 class="lang" data-en="Thamizharasi M" data-ta="தமிழரசி எம்" data-or="ଥାମିଜ୍ହରାସି M">Blockchain Dev</h3><p class="lang" data-en="Deploying and managing blockchain systems" data-ta="பிளாக்செயின் அமைப்புகளை நிறுவுதல் மற்றும் நிர்வகித்தல்" data-or="ବ୍ଲକଚେନ୍ ସିଷ୍ଟମ୍ ପ୍ରତିଷ୍ଠା ଏବଂ ପରିଚାଳନା କରିବା">Deploying and managing blockchain systems</p></div>
+    <div class="team-card"><h3 class="lang" data-en="Sandhiya K" data-ta="சந்தியா கே" data-or="ସନ୍ଧିୟା K">IoT Specialist</h3><p class="lang" data-en="Integrating IoT sensors for real-time monitoring" data-ta="நேரடி கண்காணிப்புக்காக ஐஓடி சென்சார்களை ஒருங்கிணைத்தல்" data-or="ରିଆଲ୍-ଟାଇମ୍ ନିରୀକ୍ଷଣ ପାଇଁ IoT ସେନ୍ସରଗୁଡିକୁ ସଂଯୋଜନ କରିବା">Integrating IoT sensors for real-time monitoring</p></div>
+    <div class="team-card"><h3 class="lang" data-en="Anisha N" data-ta="அனிஷா என்" data-or="ଅନିସା N">Marketing Lead</h3><p class="lang" data-en="Managing outreach and partnerships" data-ta="அறிமுகம் மற்றும் கூட்டிணைப்புகளை நிர்வகித்தல்" data-or="ଆଉଟରିଚ୍ ଏବଂ ଭାଗୀଦାରୀ ପରିଚାଳନା କରିବା">Managing outreach and partnerships</p></div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="card">
+  <h2 class="lang" data-en="Get in Touch" data-ta="தொடர்பு கொள்ளவும்" data-or="ଯୋଗାଯୋଗ କରନ୍ତୁ">Get in Touch</h2>
+  <form class="contact-form">
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <textarea placeholder="Message" rows="5" required></textarea>
+    <button type="submit" class="lang" data-en="Send Message" data-ta="செய்தியை அனுப்பு" data-or="ସନ୍ଦେଶ ପଠାନ୍ତୁ">Send Message</button>
+  </form>
+  <p style="text-align:center; margin-top:20px;" class="lang" data-en="Email us at: info@farm2fork.com" data-ta="மின்னஞ்சல்: info@farm2fork.com" data-or="ଇମେଲ କରନ୍ତୁ: info@farm2fork.com">Email us at: info@farm2fork.com</p>
+</section>
+
+<!-- Future Vision -->
+<section id="future" class="card">
+  <h2 class="lang" data-en="Future Vision" data-ta="எதிர்கால கண்ணோட்டம்" data-or="ଭବିଷ୍ୟତ ଦୃଷ୍ଟି">Future Vision</h2>
+  <p class="lang" data-en="Expand to include AI-driven analytics, mobile apps, and global outreach to enhance farm-to-fork transparency worldwide." data-ta="உலகளாவிய அளவில் பண்ணையிலிருந்து நுகர்வவர்க்கு வெளிப்படைத்தன்மையை மேம்படுத்த AI சார்ந்த பகுப்பாய்வு, மொபைல் செயலிகள் மற்றும் உலகளாவிய அறிமுகத்தை விரிவுபடுத்துதல்." data-or="ବିଶ୍ୱବ୍ୟାପୀ କୃଷକ-ଉପଭୋକ୍ତା ପ୍ରତିଦର୍ଶିତାକୁ ବୃଦ୍ଧି କରିବା ପାଇଁ AI-ଚାଳିତ ବିଶ୍ଳେଷଣ, ମୋବାଇଲ୍ ଆପ୍ସ ଏବଂ ଗ୍ଲୋବାଲ୍ ଆଉଟରିଚ୍ ସମ୍ମିଳିତ କରିବାକୁ ବିସ୍ତାର କରନ୍ତୁ।">Expand to include AI-driven analytics...</p>
+</section>
+
+<footer>
+  <p class="lang" data-en="© 2025 Farm2Fork. All rights reserved." data-ta="© 2025 Farm2Fork. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை." data-or="© 2025 Farm2Fork. ସମସ୍ତ ଅଧିକାର ସୁରକ୍ଷିତ।">© 2025 Farm2Fork. All rights reserved.</p>
+</footer>
+
+<script>
+  const acc = document.querySelectorAll(".accordion");
+  acc.forEach(a => { a.addEventListener("click", () => { const panel = a.nextElementSibling; panel.style.display = (panel.style.display === "block") ? "none" : "block"; }); });
+
+  const sections = document.querySelectorAll("section");
+  window.addEventListener("scroll", () => { sections.forEach(sec => { if(window.scrollY + window.innerHeight > sec.offsetTop + 100){ sec.style.opacity = 1; } }); });
+
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebar = document.querySelector('.sidebar');
+  menuBtn.addEventListener('click', () => { sidebar.classList.toggle('show'); });
+
+  const langSelect = document.getElementById('langSelect');
+  langSelect.addEventListener('change', () => {
+    const lang = langSelect.value;
+    document.querySelectorAll('.lang').forEach(el => {
+      el.innerText = el.getAttribute(`data-${lang}`);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Middleman Registration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .app-name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #00ff6a;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 0 20px rgba(0, 255, 106, 0.5);
+    }
+
+    .register-card {
+      background: #111827;
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,255,106,0.4);
+      width: 350px;
+      text-align: center;
+    }
+
+    .register-card h2 {
+      color: #00ff6a;
+      margin-bottom: 25px;
+    }
+
+    .register-card input {
+      width: 100%;
+      padding: 12px 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #1f2937;
+      color: #e6e6e6;
+      box-sizing: border-box;
+    }
+
+    .register-card button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #00ff6a;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .register-card button:hover {
+      transform: scale(1.05);
+    }
+
+    .register-card a {
+      color: #00ff6a;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app-name">Farm2Fork🌱</div>
+
+  <div class="register-card">
+    <h2>Middleman Registration</h2>
+    <form id="middlemanRegisterForm">
+      <input type="text" id="middlemanName" placeholder="Full Name" required>
+      <input type="email" id="middlemanId" placeholder="Email" required>
+      <input type="text" id="middlemanCompany" placeholder="Company Name" required>
+      <input type="password" id="middlemanPassword" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="submit">Register</button>
+    </form>
+    <p style="margin-top: 10px;">Already registered? <a href="middleman-log.html">Login here</a></p>
+  </div>
+
+  <script>
+    document.getElementById('middlemanRegisterForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const name = document.getElementById('middlemanName').value.trim();
+      const id = document.getElementById('middlemanId').value.trim();
+      const company = document.getElementById('middlemanCompany').value.trim();
+      const pwd = document.getElementById('middlemanPassword').value.trim();
+      const confirmPwd = document.getElementById('confirmPassword').value.trim();
+
+      // Password match check
+      if(pwd !== confirmPwd){
+        alert("Passwords do not match!");
+        return;
+      }
+
+      // Successful registration alert using template literals
+      alert(`Middleman Registered Successfully!
+Name: ${name}
+Email/ID: ${id}
+Company: ${company}`);
+
+      // Redirect to login page
+      window.location.href = "middleman-log.html";
+    });
+  </script>
+</body>
+</html>

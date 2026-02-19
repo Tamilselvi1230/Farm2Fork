@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Admin Registration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .register-card {
+      background: #111827;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,255,127,0.3);
+      width: 400px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .register-card h1 {
+      color: #00ff99;
+      margin-bottom: 30px;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .register-card input {
+      width: 90%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #00ff99;
+      background: #0d1117;
+      color: #00ff99;
+      font-size: 14px;
+      outline: none;
+    }
+    .register-card input:focus {
+      box-shadow: 0 0 10px #00ff99;
+    }
+
+    .register-card button {
+      width: 90%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #00ff99;
+      color: #0d1117;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .register-card button:hover {
+      background: #0d1117;
+      color: #00ff99;
+      border: 2px solid #00ff99;
+    }
+
+    #faceCam {
+      display: none;
+      margin-top: 15px;
+      border: 2px solid #00ff99;
+      border-radius: 12px;
+      width: 90%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-card">
+    <h1>Admin Registration </h1>
+    <form id="adminRegisterForm">
+      <input type="text" id="adminName" placeholder="Full Name" required>
+      <input type="text" id="adminId" placeholder="Admin ID / Username" required>
+      <input type="email" id="adminEmail" placeholder="Email" required>
+      <input type="password" id="adminPassword" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="submit">Register</button>
+      <button type="button" id="faceBtn"><i class="fas fa-camera"></i> Register with Face Recognition</button>
+    </form>
+    <video id="faceCam" autoplay></video>
+  </div>
+
+  <script>
+    const form = document.getElementById("adminRegisterForm");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const password = document.getElementById("adminPassword").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+      if(password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      alert("Admin Registered Successfully 💜");
+      window.location.href = "admin-log.html";
+    });
+
+    const faceBtn = document.getElementById("faceBtn");
+    const faceCam = document.getElementById("faceCam");
+
+    faceBtn.addEventListener("click", async () => {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          faceCam.srcObject = stream;
+          faceCam.style.display = "block";
+          faceBtn.style.display = "none";
+        } catch (err) {
+          alert("Camera access denied or not available 💜");
+          console.error(err);
+        }
+      } else {
+        alert("Camera not supported in this browser 💜");
+      }
+    });
+  </script>
+
+</body>
+</html>

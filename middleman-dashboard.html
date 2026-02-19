@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm2Fork - Middleman Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6e6e6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #161b22;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.4);
+    }
+    .sidebar h2 {
+      text-align: center;
+      color: #00ff99;
+      margin-bottom: 30px;
+    }
+    .sidebar a {
+      display: block;
+      color: #e6e6e6;
+      text-decoration: none;
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #00ff99;
+      color: #0d1117;
+    }
+
+    /* Content */
+    .content {
+      margin-left: 240px;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00ff99;
+    }
+
+    /* Product Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #161b22;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,255,153,0.3);
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background: #00ff99;
+      color: #0d1117;
+    }
+    tr:nth-child(even) {
+      background: #1f2937;
+    }
+
+    /* Status badges */
+    .badge {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .pending { background: orange; color: #fff; }
+    .approved { background: green; color: #fff; }
+    .rejected { background: red; color: #fff; }
+
+    /* Buttons */
+    .action-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px; /* space between buttons */
+      justify-content: center;
+    }
+    .btn {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.3s;
+    }
+    .btn-buy { background: #00ff99; color: #0d1117; }
+    .btn-buy:hover { background: #0d1117; color: #00ff99; border: 1px solid #00ff99; }
+
+    .btn-request { background: #17a2b8; color: white; }
+    .btn-request:hover { background: #0f5966; }
+
+    .btn-view { background: #007bff; color: white; }
+    .btn-view:hover { background: #0056b3; }
+
+    .btn-download { background: #6f42c1; color: white; }
+    .btn-download:hover { background: #4b2870; }
+
+    .btn-track { background: #ffc107; color: #0d1117; }
+    .btn-track:hover { background: #b38600; color: white; }
+
+    /* Cursor Trail */
+    .trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #00ff99;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade 0.5s linear forwards;
+    }
+    @keyframes fade {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.5); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu Button (Hamburger) -->
+  <div class="menu-btn" id="menu-btn">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <!-- Sidebar
+  <div class="sidebar" id="sidebar">
+    <a href="home1.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="farmer-log.html"><i class="fas fa-tractor"></i><span>Farmer</span></a>
+    <a href="middleman-log.html"><i class="fas fa-truck"></i><span>Middleman</span></a>
+    <a href="govt-log.html"><i class="fas fa-landmark"></i><span>Govt</span></a>
+    <a href="C:\Users\tamil\Downloads\F2F\CONSUMER-page\consumer1.html"><i class="fas fa-user"></i><span>Consumer</span></a>
+    <a href="admin-log.html"><i class="fas fa-user-shield"></i><span>Admin</span></a>
+    <a href="ABOUT-page/About1.html"><i class="fas fa-info-circle"></i><span>About</span></a>
+  </div> -->
+
+  <!-- Sidebar -->
+<!-- <div class="sidebar">
+    <a href="C:\Users\tamil\Downloads\F2F\HOME-PAGE\home1.html"><i class="fas fa-home"></i>Home</a>
+    <a href="C:\Users\tamil\Downloads\F2F\FARMER-page\farmer-log.html"><i class="fas fa-tractor"></i>Farmer</a>
+    <a href="C:\Users\tamil\Downloads\F2F\MIDDLEMAN-page\middleman-log.html"><i class="fas fa-truck"></i>Middleman</a>
+    <a href="govt-log.html"><i class="fas fa-landmark"></i>Govt</a>
+    <a href="C:\Users\tamil\Downloads\F2F\CONSUMER-page\consumer1.html"><i class="fas fa-user"></i>Consumer</a> 
+    <a href="admin-log.html"><i class="fas fa-user-shield"></i>Admin</a>
+    <a href="C:\Users\tamil\Downloads\F2F\ABOUT-page\About1.html"><i class="fas fa-info-circle"></i>About</a>
+  </div> -->
+
+  <div class="sidebar">
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\home1.html"><i class="fas fa-home"></i>Home</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\farmer-log.html"><i class="fas fa-tractor"></i>Farmer</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\middleman-log.html"><i class="fas fa-truck"></i>Middleman</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\govtoff-log.html"><i class="fas fa-landmark"></i>Govt</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\consumer1.html"><i class="fas fa-user"></i>Consumer</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\admin-log.html"><i class="fas fa-user-shield"></i>Admin</a>
+  <a href="C:\Users\Admin\Desktop\Farm2Fork\About1.html"><i class="fas fa-info-circle"></i>About</a>
+</div>
+  <!-- Content -->
+  <div class="content">
+    <h1>Middleman Dashboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Farmer Name</th>
+          <th>Quantity</th>
+          <th>Farmer Price</th>
+          <th>Consumer Price</th>
+          <th>Govt Verification</th>
+          <th>QR Code</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tomatoes</td>
+          <td>Farmer A</td>
+          <td>100 kg</td>
+          <td>₹50/kg</td>
+          <td>₹70/kg</td>
+          <td><span class="badge pending">Pending</span></td>
+          <td><i class="fa fa-qrcode"></i></td>
+          <td>Purchased</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn btn-buy">Buy</button>
+              <button class="btn btn-request">Request Approval</button>
+              <button class="btn btn-view">View QR</button>
+              <button class="btn btn-download">Download QR</button>
+              <button class="btn btn-track">Track</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Wheat</td>
+          <td>Farmer B</td>
+          <td>200 kg</td>
+          <td>₹40/kg</td>
+          <td>₹60/kg</td>
+          <td><span class="badge approved">Approved</span></td>
+          <td><i class="fa fa-qrcode"></i></td>
+          <td>Delivered</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn btn-buy">Buy</button>
+              <button class="btn btn-request">Request Approval</button>
+              <button class="btn btn-view">View QR</button>
+              <button class="btn btn-download">Download QR</button>
+              <button class="btn btn-track">Track</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Cursor trail effect
+    document.addEventListener("mousemove", function(e) {
+      let trail = document.createElement("div");
+      trail.className = "trail";
+      trail.style.left = (e.pageX - 4) + "px";
+      trail.style.top = (e.pageY - 4) + "px";
+      document.body.appendChild(trail);
+      setTimeout(() => { trail.remove(); }, 500);
+    });
+  </script>
+</body>
+</html>
